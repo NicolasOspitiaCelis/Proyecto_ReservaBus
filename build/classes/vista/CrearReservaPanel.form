@@ -425,7 +425,7 @@
         <Component class="javax.swing.JLabel" name="ReservacionT">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+              <Font name="Arial Rounded MT Bold" size="18" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Reservaci&#xf3;n"/>

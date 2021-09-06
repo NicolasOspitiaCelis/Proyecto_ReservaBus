@@ -98,11 +98,6 @@ public class ReservaJpaController implements Serializable {
     }
 
     public void edit(Reserva reserva) throws IllegalOrphanException, NonexistentEntityException, Exception {
-        reserva.getReservaPK().setCiudadDestino(reserva.getRutas().getRutasPK().getCiudadDestino());
-        reserva.getReservaPK().setAutobusidautobus(reserva.getRutas().getRutasPK().getAutobusidautobus());
-        reserva.getReservaPK().setCiudadOrigen(reserva.getRutas().getRutasPK().getCiudadOrigen());
-        reserva.getReservaPK().setIdrutas(reserva.getRutas().getRutasPK().getIdrutas());
-        reserva.getReservaPK().setPasajeroCedula(reserva.getPasajero().getCedula());
         EntityManager em = null;
         try {
             em = getEntityManager();

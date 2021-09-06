@@ -40,8 +40,6 @@ public class CrearReservaPanel extends javax.swing.JPanel {
     private String selectedH;
     private int selectedA;
     private String selectedTP;
-    private SimpleDateFormat f = new SimpleDateFormat("yyyy/mm/dd");
-    private SimpleDateFormat h = new SimpleDateFormat("hh:mm");
     private Date fecha;
     private Date hora;
     private Reservador reservador;
@@ -201,7 +199,7 @@ public class CrearReservaPanel extends javax.swing.JPanel {
             }
         });
 
-        ReservacionT.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        ReservacionT.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         ReservacionT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ReservacionT.setText("Reservación");
 

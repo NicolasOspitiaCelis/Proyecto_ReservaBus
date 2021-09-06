@@ -175,6 +175,12 @@ public class ReservaPanel extends javax.swing.JPanel {
 
     private void EditarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarReservaActionPerformed
         // TODO add your handling code here:
+        EditarReservaPanel EditarP = new EditarReservaPanel();
+        PrincipalPanel.setVisible(false);
+        PrincipalPanel.removeAll();
+        PrincipalPanel.add(EditarP);
+        PrincipalPanel.setVisible(true);
+        this.setBounds(500,100,780, 700);
     }//GEN-LAST:event_EditarReservaActionPerformed
 
     private void CrearReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearReservaActionPerformed

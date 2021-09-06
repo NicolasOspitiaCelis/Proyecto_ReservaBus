@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 import modelo.Reserva;
 import static vista.CrearReservaPanel.convertirFecha;
 import static vista.PrincipalFrame.PrincipalPanel;
-import static vista.PrincipalFrame.reservaJpaController;
 import static vista.PrincipalFrame.reservas;
 
 /**
@@ -108,6 +107,7 @@ public class ConsultarReservaPanel extends javax.swing.JPanel {
 
         ConsultarB.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         ConsultarB.setText("Consultar");
+        ConsultarB.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ConsultarB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ConsultarBActionPerformed(evt);
@@ -134,7 +134,7 @@ public class ConsultarReservaPanel extends javax.swing.JPanel {
 
         pagoResult.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Consulta");
 
@@ -173,8 +173,8 @@ public class ConsultarReservaPanel extends javax.swing.JPanel {
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(idreservaB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(ConsultarB)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                        .addComponent(ConsultarB, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         PanelLayout.setVerticalGroup(
             PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,15 +191,15 @@ public class ConsultarReservaPanel extends javax.swing.JPanel {
                                             .addGroup(PanelLayout.createSequentialGroup()
                                                 .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                     .addGroup(PanelLayout.createSequentialGroup()
-                                                        .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                            .addGroup(PanelLayout.createSequentialGroup()
-                                                                .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                    .addGroup(PanelLayout.createSequentialGroup()
-                                                                        .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                                            .addComponent(idreservaL)
-                                                                            .addComponent(idreservaB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                            .addComponent(ConsultarB))
-                                                                        .addGap(19, 19, 19)
+                                                        .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                            .addComponent(idreservaL)
+                                                            .addComponent(idreservaB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                            .addComponent(ConsultarB, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGap(17, 17, 17)
+                                                        .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelLayout.createSequentialGroup()
+                                                                .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelLayout.createSequentialGroup()
                                                                         .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                                             .addComponent(pasajeroCedulaL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                                             .addComponent(cedulaResult, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE))
@@ -209,10 +209,10 @@ public class ConsultarReservaPanel extends javax.swing.JPanel {
                                                                             .addComponent(tipoDePagoL))
                                                                         .addGap(18, 18, 18)
                                                                         .addComponent(ciudadOrigenL))
-                                                                    .addComponent(origenResult, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                    .addComponent(origenResult, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                                 .addGap(18, 18, 18)
                                                                 .addComponent(ciudadDestinoL))
-                                                            .addComponent(destinoResult, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                            .addComponent(destinoResult, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                         .addGap(18, 18, 18)
                                                         .addComponent(fechaViajeL))
                                                     .addComponent(fechaResult, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -237,7 +237,7 @@ public class ConsultarReservaPanel extends javax.swing.JPanel {
 
         AtrasB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/Imagenes/Atras.png"))); // NOI18N
         AtrasB.setContentAreaFilled(false);
-        AtrasB.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/Atras_G.png"))); // NOI18N
+        AtrasB.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/Imagenes/Atras_G.png"))); // NOI18N
         AtrasB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AtrasBActionPerformed(evt);
@@ -253,7 +253,7 @@ public class ConsultarReservaPanel extends javax.swing.JPanel {
                 .addComponent(AtrasB)
                 .addGap(115, 115, 115)
                 .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

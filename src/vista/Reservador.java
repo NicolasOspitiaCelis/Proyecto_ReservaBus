@@ -1,8 +1,10 @@
 package vista;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import modelo.Autobus;
+import modelo.Equipaje;
 import modelo.Reserva;
 import modelo.ReservaPK;
 import modelo.Rutas;
@@ -60,6 +62,9 @@ public class Reservador {
         reservaPK = new ReservaPK(idreserva, pasajeroCedula, ciudadOrigen, ciudadDestino, autobusidautobus, idrutas);
         reserva = new Reserva(reservaPK, tipoDePago, puesto, fechaViaje, horaSalida, precio);
         return reserva;
+    }
+    public void setEquipaje(Collection<Equipaje> equipajeCollection){
+        this.reserva.setEquipajeCollection(equipajeCollection);
     }
     
 }
