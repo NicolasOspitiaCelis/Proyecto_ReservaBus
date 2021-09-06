@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Tutti%20il%20mio/Documentos/NetBeansProjects/ReservaBus/src/vista/PrincipalFrame.java</file>
-            <file>file:/E:/Tutti%20il%20mio/Documentos/NetBeansProjects/ReservaBus/src/vista/ConsultarReservaPanel.java</file>
-            <file>file:/E:/Tutti%20il%20mio/Documentos/NetBeansProjects/ReservaBus/src/controlador/ReservaJpaController.java</file>
-            <file>file:/E:/Tutti%20il%20mio/Documentos/NetBeansProjects/ReservaBus/src/vista/ReservaPanel.java</file>
-            <file>file:/E:/Tutti%20il%20mio/Documentos/NetBeansProjects/ReservaBus/src/vista/RutasPanel.java</file>
-            <file>file:/E:/Tutti%20il%20mio/Documentos/NetBeansProjects/ReservaBus/src/vista/MenuPrincipal.java</file>
-            <file>file:/E:/Tutti%20il%20mio/Documentos/NetBeansProjects/ReservaBus/src/vista/CrearReservaPanel.java</file>
+            <file>file:/E:/Tutti%20il%20mio/Documentos/GitHub/Proyecto_ReservaBus/src/vista/ReservaPanel.java</file>
+            <file>file:/E:/Tutti%20il%20mio/Documentos/GitHub/Proyecto_ReservaBus/src/modelo/Reserva.java</file>
+            <file>file:/E:/Tutti%20il%20mio/Documentos/GitHub/Proyecto_ReservaBus/src/vista/ConsultarReservaPanel.java</file>
+            <file>file:/E:/Tutti%20il%20mio/Documentos/GitHub/Proyecto_ReservaBus/src/vista/Reservador.java</file>
+            <file>file:/E:/Tutti%20il%20mio/Documentos/GitHub/Proyecto_ReservaBus/src/vista/CrearReservaPanel.java</file>
+            <file>file:/E:/Tutti%20il%20mio/Documentos/GitHub/Proyecto_ReservaBus/src/vista/EditarReservaPanel.java</file>
         </group>
     </open-files>
 </project-private>
