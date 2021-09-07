@@ -18,7 +18,9 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.util.Date;
+import modelo.Autobus;
 import modelo.Reserva;
+import modelo.ReservaPK;
 import modelo.Rutas;
 import static vista.PrincipalFrame.PrincipalPanel;
 import static vista.PrincipalFrame.autobuses;
@@ -34,15 +36,10 @@ public class CrearReservaPanel extends javax.swing.JPanel {
 
     private Image imagen;
     private List <String> t = new ArrayList();
-    private String selectedCO;
-    private String selectedCD;
-    private String selectedF;
-    private String selectedH;
-    private int selectedA;
-    private String selectedTP;
-    private Date fecha;
-    private Date hora;
-    private Reservador reservador;
+    private Reserva reserva = new Reserva();
+    private ReservaPK reservaPK = new ReservaPK();
+    private ArrayList <Date> fechas;
+    private ArrayList <Date> horas;
     /**
      * Creates new form CrearReservaPanel
      */
@@ -69,8 +66,6 @@ public class CrearReservaPanel extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         AtrasB = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        pasajeroCedula = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         idreserva = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -87,6 +82,8 @@ public class CrearReservaPanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         AutobusCB = new javax.swing.JComboBox<>();
         ReservacionT = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        pasajeroCedula = new javax.swing.JTextField();
 
         jLabel9.setText("jLabel9");
 
@@ -102,14 +99,10 @@ public class CrearReservaPanel extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
-        jLabel1.setText("Cedula pasajero");
-
-        pasajeroCedula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
         jLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel2.setText("ID reserva");
 
+        idreserva.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         idreserva.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
@@ -203,6 +196,12 @@ public class CrearReservaPanel extends javax.swing.JPanel {
         ReservacionT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ReservacionT.setText("Reservación");
 
+        jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel1.setText("Cedula pasajero");
+
+        pasajeroCedula.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        pasajeroCedula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -210,16 +209,6 @@ public class CrearReservaPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(97, 97, 97)
-                                .addComponent(HacerReservaB, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(71, 71, 71)
-                                .addComponent(idreserva))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -237,28 +226,37 @@ public class CrearReservaPanel extends javax.swing.JPanel {
                             .addComponent(TipoDePagoCB, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(AutobusCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(164, 164, 164)
+                                .addComponent(HacerReservaB, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(138, 138, 138)
+                                .addComponent(ReservacionT, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(71, 71, 71)
+                        .addComponent(idreserva))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pasajeroCedula)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(ReservacionT, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addComponent(pasajeroCedula)))
                 .addGap(39, 39, 39))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(ReservacionT, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pasajeroCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(idreserva, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(pasajeroCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(TipoDePagoCB, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -308,7 +306,7 @@ public class CrearReservaPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -333,9 +331,9 @@ public class CrearReservaPanel extends javax.swing.JPanel {
             if(CiudadOrigenCB.getSelectedIndex()>0){
                 t.clear();
                 this.CiudadDestinoCB.addItem("Seleccione una ciudad de destino");
-                selectedCO = CiudadOrigenCB.getSelectedItem().toString();
+                reservaPK.setCiudadOrigen(CiudadOrigenCB.getSelectedItem().toString());
                 for (Rutas r : rutas){
-                    if(r.getRutasPK().getCiudadOrigen().equals(selectedCO))
+                    if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()))
                         t.add(r.getRutasPK().getCiudadDestino());
                 }
                 List<String> noRep = new ArrayList(new LinkedHashSet<String>(t));
@@ -356,12 +354,13 @@ public class CrearReservaPanel extends javax.swing.JPanel {
         if(evt.getStateChange() == ItemEvent.SELECTED){
             if(CiudadDestinoCB.getSelectedIndex()>0){
                 t.clear();
+                fechas = new ArrayList <Date>();
                 this.FechaViajeCB.addItem("Seleccione una fecha de viaje");
-                selectedCD = CiudadDestinoCB.getSelectedItem().toString();
+                reservaPK.setCiudadDestino(CiudadDestinoCB.getSelectedItem().toString());
                 for (Rutas r : rutas){
-                    if(r.getRutasPK().getCiudadOrigen().equals(selectedCO) && r.getRutasPK().getCiudadDestino().equals(selectedCD))
+                    if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()))
                         try {
-                            fecha = r.getFechaViaje();
+                            fechas.add(r.getFechaViaje());
                             t.add(convertirFecha(r.getFechaViaje().toString()));
                     } catch (ParseException ex) {
                         Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -385,14 +384,15 @@ public class CrearReservaPanel extends javax.swing.JPanel {
         if(evt.getStateChange() == ItemEvent.SELECTED){
             if(FechaViajeCB.getSelectedIndex()>0){
                 t.clear();
+                horas = new ArrayList <Date>();
                 this.HoraViajeCB.addItem("Seleccione una hora de viaje");
-                selectedF = FechaViajeCB.getSelectedItem().toString();
+                reserva.setFechaViaje(fechas.get(FechaViajeCB.getSelectedIndex()-1));
                 for (Rutas r : rutas){
-                    System.out.print(r.getHoraViaje().toString().substring(11,16));
-                    try {
-                        if(r.getRutasPK().getCiudadOrigen().equals(selectedCO) && r.getRutasPK().getCiudadDestino().equals(selectedCD) && convertirFecha(r.getFechaViaje().toString()).equals(selectedF))
-                            hora = r.getHoraViaje();
+                    try { 
+                        if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()) && convertirFecha(r.getFechaViaje().toString()).equals(convertirFecha(reserva.getFechaViaje().toString()))){
+                            horas.add(r.getHoraViaje());
                             t.add(r.getHoraViaje().toString().substring(11,16));
+                        }
                     } catch (ParseException ex) {
                         Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -418,11 +418,13 @@ public class CrearReservaPanel extends javax.swing.JPanel {
             if(idreserva.getText().equals(r.getReservaPK().getIdreserva())) repetido = true;
         }
         if(repetido == false){
-            reservador = new Reservador(idreserva.getText(), Long.parseLong(pasajeroCedula.getText()), selectedCO, selectedCD, selectedTP, fecha, hora, selectedA);
-            reservador.setPuesto(reservas, autobuses);
-            reservador.setPrecioAndIdruta(rutas);
+            reservaPK.setPasajeroCedula(Long.parseLong(pasajeroCedula.getText()));
+            reservaPK.setIdreserva(idreserva.getText());
+            reserva.setReservaPK(reservaPK);
+            reserva.setPuesto(reservas, autobuses);
+            reserva.setPrecioAndIdruta(rutas);
             try {
-                reservaJpaController.create(reservador.getReserva());
+                reservaJpaController.create(reserva);
                 JOptionPane.showMessageDialog(this, "Se ha creado la reserva con exito");
                 CrearReservaPanel ReservaP = new CrearReservaPanel();
                 PrincipalPanel.setVisible(false);
@@ -446,10 +448,10 @@ public class CrearReservaPanel extends javax.swing.JPanel {
             if(HoraViajeCB.getSelectedIndex()>0){
                 t.clear();
                 this.AutobusCB.addItem("Seleccione un autobus");
-                selectedH = HoraViajeCB.getSelectedItem().toString();
+                reserva.setHoraSalida(horas.get(HoraViajeCB.getSelectedIndex()-1));
                 for (Rutas r : rutas){
                     try {
-                        if(r.getRutasPK().getCiudadOrigen().equals(selectedCO) && r.getRutasPK().getCiudadDestino().equals(selectedCD) && convertirFecha(r.getFechaViaje().toString()).equals(selectedF) && r.getHoraViaje().toString().substring(11,16).equals(selectedH))
+                        if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()) && convertirFecha(r.getFechaViaje().toString()).equals(convertirFecha(reserva.getFechaViaje().toString())) && r.getHoraViaje().toString().substring(11,16).equals(reserva.getHoraSalida().toString().substring(11,16)))
                             t.add(r.getAutobus().getIdautobus().toString());
                     } catch (ParseException ex) {
                         Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -472,7 +474,7 @@ public class CrearReservaPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(evt.getStateChange() == ItemEvent.SELECTED){
             if(AutobusCB.getSelectedIndex()>0){
-                selectedA = Integer.parseInt(AutobusCB.getSelectedItem().toString());
+                reservaPK.setAutobusidautobus(Integer.parseInt(AutobusCB.getSelectedItem().toString()));
             }
         }
     }//GEN-LAST:event_AutobusCBItemStateChanged
@@ -481,7 +483,7 @@ public class CrearReservaPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(evt.getStateChange() == ItemEvent.SELECTED){
             if(TipoDePagoCB.getSelectedIndex()>0){
-                selectedTP = TipoDePagoCB.getSelectedItem().toString();
+                reserva.setTipoDePago(TipoDePagoCB.getSelectedItem().toString());
             }
         }
     }//GEN-LAST:event_TipoDePagoCBItemStateChanged
@@ -504,6 +506,8 @@ public class CrearReservaPanel extends javax.swing.JPanel {
         else if(month.equals("Dec")) month = "12";
         return year+"/"+month+"/"+day;
     }
+    
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AtrasB;

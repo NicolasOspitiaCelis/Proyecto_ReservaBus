@@ -8,6 +8,7 @@ package modelo;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -197,5 +198,23 @@ public class Reserva implements Serializable {
     public String toString() {
         return "modelo.Reserva[ reservaPK=" + reservaPK + " ]";
     }
-    
+    public void setPuesto(List <Reserva> reservas, List <Autobus> autobuses){
+        int contador = 0;
+        int sillas = 0;
+        for(Reserva r : reservas){
+            if(r.getReservaPK().getCiudadOrigen().equals(this.getReservaPK().getCiudadOrigen()) && r.getReservaPK().getCiudadDestino().equals(this.getReservaPK().getCiudadDestino()) && r.getReservaPK().getAutobusidautobus() == this.getReservaPK().getAutobusidautobus() && r.getFechaViaje().toString().equals(this.getFechaViaje().toString()) && r.getHoraSalida().toString().equals(this.getHoraSalida().toString())){
+                contador++;
+            }
+        }
+        for(Autobus a : autobuses){
+            if(this.getReservaPK().getAutobusidautobus() == a.getIdautobus()) sillas = a.getNumeroDeSillas();
+        }
+        this.setPuesto(sillas - (sillas - contador) + 1);
+    }
+    public void setPrecioAndIdruta(List <Rutas> rutas){
+        for(Rutas r : rutas){
+            if(r.getRutasPK().getCiudadOrigen().equals(this.getReservaPK().getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(this.getReservaPK().getCiudadDestino())) this.setPrecio(r.getPrecio());
+            if(r.getRutasPK().getCiudadOrigen().equals(this.getReservaPK().getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(this.getReservaPK().getCiudadDestino()) && r.getRutasPK().getAutobusidautobus() == this.getReservaPK().getAutobusidautobus() && r.getFechaViaje().toString().equals(this.getFechaViaje().toString()) && r.getHoraViaje().toString().equals(this.getHoraSalida().toString())) this.getReservaPK().setIdrutas(r.getRutasPK().getIdrutas());
+        }
+    }
 }

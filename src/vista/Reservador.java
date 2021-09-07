@@ -23,6 +23,8 @@ public class Reservador {
     private Date fechaViaje;
     private Date horaSalida;
     private int precio;
+    private Collection<Equipaje> equipajeCollection;
+    private Rutas rutas;
     private Reserva reserva;
     private ReservaPK reservaPK;
     
@@ -58,13 +60,31 @@ public class Reservador {
             if(r.getRutasPK().getCiudadOrigen().equals(ciudadOrigen) && r.getRutasPK().getCiudadDestino().equals(ciudadDestino) && r.getRutasPK().getAutobusidautobus() == autobusidautobus && r.getFechaViaje().toString().equals(fechaViaje.toString()) && r.getHoraViaje().toString().equals(horaSalida.toString())) idrutas = r.getRutasPK().getIdrutas();
         }
     }
-    public Reserva getReserva(){
+    public void initReserva(Collection<Equipaje> equipajeCollection, Rutas rutas){
         reservaPK = new ReservaPK(idreserva, pasajeroCedula, ciudadOrigen, ciudadDestino, autobusidautobus, idrutas);
         reserva = new Reserva(reservaPK, tipoDePago, puesto, fechaViaje, horaSalida, precio);
-        return reserva;
+        reserva.setEquipajeCollection(equipajeCollection);
+        reserva.setRutas(rutas);
     }
-    public void setEquipaje(Collection<Equipaje> equipajeCollection){
-        this.reserva.setEquipajeCollection(equipajeCollection);
+    public Reserva getReserva(){
+        return this.reserva;
     }
-    
+    public void cambiarReservaCedula(long cedula){
+        this.reservaPK.setPasajeroCedula(cedula);
+    }
+    public void cambiarReservaCO(String cO){
+        this.reservaPK.setCiudadOrigen(cO);
+    }
+    public void cambiarReservaCD(String cD){
+        this.reservaPK.setCiudadDestino(cD);
+    }
+    public void cambiarReservaAutobus(int auto){
+        this.reservaPK.setAutobusidautobus(auto);
+    }
+    public void cambiarReservaRuta(int idrutas){
+        this.reservaPK.setIdrutas(idrutas);
+    }
+    public void cambiarReservaFecha(Date fecha){
+        this.reserva.setFechaViaje(fecha);
+    }
 }

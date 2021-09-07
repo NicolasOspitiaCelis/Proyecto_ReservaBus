@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.LinkedHashSet;
@@ -19,6 +20,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelo.Reserva;
 import modelo.Rutas;
+import modelo.Equipaje;
+import modelo.ReservaPK;
 import static vista.CrearReservaPanel.convertirFecha;
 import static vista.PrincipalFrame.reservaJpaController;
 import static vista.PrincipalFrame.PrincipalPanel;
@@ -42,7 +45,10 @@ public class EditarReservaPanel extends javax.swing.JPanel {
     private String selectedTP;
     private Date fecha;
     private Date hora;
-    private Reservador reservador;
+    private Reserva reserva = new Reserva();
+    private ReservaPK reservaPK = new ReservaPK();
+    private ArrayList<Date> fechas;
+    private ArrayList<Date> horas;
 
     /**
      * Creates new form EditarReservaPanel
@@ -118,11 +124,13 @@ public class EditarReservaPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel1.setText("Cedula pasajero");
 
+        pasajeroCedula.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         pasajeroCedula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel2.setText("ID reserva");
 
+        idreserva.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         idreserva.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
@@ -346,23 +354,23 @@ public class EditarReservaPanel extends javax.swing.JPanel {
 
     private void CiudadOrigenCBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CiudadOrigenCBItemStateChanged
         // TODO add your handling code here:
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (CiudadOrigenCB.getSelectedIndex() > 0) {
+        if(evt.getStateChange() == ItemEvent.SELECTED){
+            if(CiudadOrigenCB.getSelectedIndex()>0){
                 t.clear();
                 this.CiudadDestinoCB.addItem("Seleccione una ciudad de destino");
-                selectedCO = CiudadOrigenCB.getSelectedItem().toString();
-                for (Rutas r : rutas) {
-                    if (r.getRutasPK().getCiudadOrigen().equals(selectedCO)) {
+                reservaPK.setCiudadOrigen(CiudadOrigenCB.getSelectedItem().toString());
+                for (Rutas r : rutas){
+                    if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()))
                         t.add(r.getRutasPK().getCiudadDestino());
-                    }
                 }
                 List<String> noRep = new ArrayList(new LinkedHashSet<String>(t));
-                for (String s : noRep) {
+                for (String s : noRep){
                     this.CiudadDestinoCB.addItem(s);
                 }
                 CiudadDestinoCB.setEnabled(true);
             }
-        } else {
+        }
+        else{
             CiudadDestinoCB.setEnabled(false);
             this.CiudadDestinoCB.removeAllItems();
         }
@@ -375,28 +383,29 @@ public class EditarReservaPanel extends javax.swing.JPanel {
 
     private void CiudadDestinoCBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CiudadDestinoCBItemStateChanged
         // TODO add your handling code here:
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (CiudadDestinoCB.getSelectedIndex() > 0) {
+        if(evt.getStateChange() == ItemEvent.SELECTED){
+            if(CiudadDestinoCB.getSelectedIndex()>0){
                 t.clear();
+                fechas = new ArrayList <Date>();
                 this.FechaViajeCB.addItem("Seleccione una fecha de viaje");
-                selectedCD = CiudadDestinoCB.getSelectedItem().toString();
-                for (Rutas r : rutas) {
-                    if (r.getRutasPK().getCiudadOrigen().equals(selectedCO) && r.getRutasPK().getCiudadDestino().equals(selectedCD)) {
-                        fecha = r.getFechaViaje();
+                reservaPK.setCiudadDestino(CiudadDestinoCB.getSelectedItem().toString());
+                for (Rutas r : rutas){
+                    if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()))
                         try {
+                            fechas.add(r.getFechaViaje());
                             t.add(convertirFecha(r.getFechaViaje().toString()));
-                        } catch (ParseException ex) {
-                            Logger.getLogger(EditarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                    } catch (ParseException ex) {
+                        Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 List<String> noRep = new ArrayList(new LinkedHashSet<String>(t));
-                for (String s : noRep) {
+                for (String s : noRep){
                     this.FechaViajeCB.addItem(s);
                 }
                 FechaViajeCB.setEnabled(true);
             }
-        } else {
+        }
+        else{
             FechaViajeCB.setEnabled(false);
             this.FechaViajeCB.removeAllItems();
         }
@@ -404,30 +413,31 @@ public class EditarReservaPanel extends javax.swing.JPanel {
 
     private void FechaViajeCBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_FechaViajeCBItemStateChanged
         // TODO add your handling code here:
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (FechaViajeCB.getSelectedIndex() > 0) {
+        if(evt.getStateChange() == ItemEvent.SELECTED){
+            if(FechaViajeCB.getSelectedIndex()>0){
                 t.clear();
+                horas = new ArrayList <Date>();
                 this.HoraViajeCB.addItem("Seleccione una hora de viaje");
-                selectedF = FechaViajeCB.getSelectedItem().toString();
-                for (Rutas r : rutas) {
-                    System.out.print(r.getHoraViaje().toString().substring(11, 16));
-                    try {
-                        if (r.getRutasPK().getCiudadOrigen().equals(selectedCO) && r.getRutasPK().getCiudadDestino().equals(selectedCD) && convertirFecha(r.getFechaViaje().toString()).equals(selectedF)) {
-                            hora = r.getHoraViaje();
+                reserva.setFechaViaje(fechas.get(FechaViajeCB.getSelectedIndex()-1));
+                for (Rutas r : rutas){
+                    try { 
+                        if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()) && convertirFecha(r.getFechaViaje().toString()).equals(convertirFecha(reserva.getFechaViaje().toString()))){
+                            horas.add(r.getHoraViaje());
+                            t.add(r.getHoraViaje().toString().substring(11,16));
                         }
                     } catch (ParseException ex) {
-                        Logger.getLogger(EditarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    t.add(r.getHoraViaje().toString().substring(11, 16));
-
+                    
                 }
                 List<String> noRep = new ArrayList(new LinkedHashSet<String>(t));
-                for (String s : noRep) {
+                for (String s : noRep){
                     this.HoraViajeCB.addItem(s);
                 }
                 HoraViajeCB.setEnabled(true);
             }
-        } else {
+        }
+        else{
             HoraViajeCB.setEnabled(false);
             this.HoraViajeCB.removeAllItems();
         }
@@ -435,27 +445,27 @@ public class EditarReservaPanel extends javax.swing.JPanel {
 
     private void HoraViajeCBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_HoraViajeCBItemStateChanged
         // TODO add your handling code here:
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (HoraViajeCB.getSelectedIndex() > 0) {
+        if(evt.getStateChange() == ItemEvent.SELECTED){
+            if(HoraViajeCB.getSelectedIndex()>0){
                 t.clear();
                 this.AutobusCB.addItem("Seleccione un autobus");
-                selectedH = HoraViajeCB.getSelectedItem().toString();
-                for (Rutas r : rutas) {
+                reserva.setHoraSalida(horas.get(HoraViajeCB.getSelectedIndex()-1));
+                for (Rutas r : rutas){
                     try {
-                        if (r.getRutasPK().getCiudadOrigen().equals(selectedCO) && r.getRutasPK().getCiudadDestino().equals(selectedCD) && convertirFecha(r.getFechaViaje().toString()).equals(selectedF) && r.getHoraViaje().toString().substring(11, 16).equals(selectedH)) {
+                        if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()) && convertirFecha(r.getFechaViaje().toString()).equals(convertirFecha(reserva.getFechaViaje().toString())) && r.getHoraViaje().toString().substring(11,16).equals(reserva.getHoraSalida().toString().substring(11,16)))
                             t.add(r.getAutobus().getIdautobus().toString());
-                        }
                     } catch (ParseException ex) {
-                        Logger.getLogger(EditarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
+                    
                 }
-                for (String s : t) {
+                for (String s : t){
                     this.AutobusCB.addItem(s);
                 }
                 AutobusCB.setEnabled(true);
             }
-        } else {
+        }
+        else{
             AutobusCB.setEnabled(false);
             this.AutobusCB.removeAllItems();
         }
@@ -464,14 +474,15 @@ public class EditarReservaPanel extends javax.swing.JPanel {
     private void EditarReservaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarReservaBActionPerformed
         // TODO add your handling code here:
         try {
-            reservaJpaController.edit(reservador.getReserva());
-            JOptionPane.showMessageDialog(this, "Se ha editado la reserva con exito");
-            CrearReservaPanel ReservaP = new CrearReservaPanel();
+            reservaJpaController.edit(reserva);
+            JOptionPane.showMessageDialog(this, "Se ha editado la reserva con éxito");
+            EditarReservaPanel EditarRP = new EditarReservaPanel();
             PrincipalPanel.setVisible(false);
             PrincipalPanel.removeAll();
-            PrincipalPanel.add(ReservaP);
+            PrincipalPanel.add(EditarRP);
             PrincipalPanel.setVisible(true);
             this.setBounds(500, 100, 780, 700);
+            System.gc();
         } catch (Exception ex) {
             Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha ocurrido un error. " + ex);
@@ -482,22 +493,38 @@ public class EditarReservaPanel extends javax.swing.JPanel {
         pasajeroCedula.setText("");
         TipoDePagoCB.setSelectedIndex(0);
         CiudadOrigenCB.setSelectedIndex(0);
-    }
+        CiudadDestinoCB.removeAllItems();
+        FechaViajeCB.removeAllItems();
+        HoraViajeCB.removeAllItems();
+        AutobusCB.removeAllItems();
+        selectedCO = null;
+        selectedCD = null;
+        selectedF = null;
+        selectedH = null;
+        selectedA = 0;
+        selectedTP = null;
+        fecha = null;
+        hora = null;
+        fechas = null;
+        horas = null;
+        reserva = new Reserva();
+        reservaPK = new ReservaPK();
+}
 
     private void TipoDePagoCBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TipoDePagoCBItemStateChanged
         // TODO add your handling code here:
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (TipoDePagoCB.getSelectedIndex() > 0) {
-                selectedTP = TipoDePagoCB.getSelectedItem().toString();
+        if(evt.getStateChange() == ItemEvent.SELECTED){
+            if(TipoDePagoCB.getSelectedIndex()>0){
+                reserva.setTipoDePago(TipoDePagoCB.getSelectedItem().toString());
             }
         }
     }//GEN-LAST:event_TipoDePagoCBItemStateChanged
 
     private void AutobusCBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_AutobusCBItemStateChanged
         // TODO add your handling code here:
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (AutobusCB.getSelectedIndex() > 0) {
-                selectedA = Integer.parseInt(AutobusCB.getSelectedItem().toString());
+        if(evt.getStateChange() == ItemEvent.SELECTED){
+            if(AutobusCB.getSelectedIndex()>0){
+                reservaPK.setAutobusidautobus(Integer.parseInt(AutobusCB.getSelectedItem().toString()));
             }
         }
     }//GEN-LAST:event_AutobusCBItemStateChanged
@@ -505,30 +532,12 @@ public class EditarReservaPanel extends javax.swing.JPanel {
     private void BuscarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBActionPerformed
         // TODO add your handling code here:
         boolean found = false;
+//        Clean();
         for (Reserva r : reservas) {
             if (r.getReservaPK().getIdreserva().equals(idreserva.getText())) {
-                try {
-                    this.LlenarCB(r.getReservaPK().getCiudadOrigen(), r.getReservaPK().getCiudadDestino(), convertirFecha(r.getFechaViaje().toString()), r.getHoraSalida().toString().substring(11, 16), r.getReservaPK().getAutobusidautobus());
-                } catch (ParseException ex) {
-                    Logger.getLogger(EditarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                pasajeroCedula.setText(String.valueOf(r.getReservaPK().getPasajeroCedula()));
-                TipoDePagoCB.setSelectedItem(r.getTipoDePago());
-                CiudadOrigenCB.setSelectedItem(r.getReservaPK().getCiudadOrigen());
-                CiudadDestinoCB.setSelectedItem(r.getReservaPK().getCiudadDestino());
-                try {
-                    FechaViajeCB.setSelectedItem(convertirFecha(r.getFechaViaje().toString()));
-                } catch (ParseException ex) {
-                    Logger.getLogger(ConsultarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                HoraViajeCB.setSelectedItem(r.getHoraSalida().toString().substring(11, 16));
-                AutobusCB.setSelectedItem(String.valueOf(r.getReservaPK().getAutobusidautobus()));
+                this.LlenarCB(r);
                 found = true;
                 this.setVisibleA();
-                reservador = new Reservador(idreserva.getText(), Long.parseLong(pasajeroCedula.getText()), selectedCO, selectedCD, selectedTP, fecha, hora, selectedA);
-            reservador.setPuesto(reservas, autobuses);
-            reservador.setPrecioAndIdruta(rutas);
-            reservador.setEquipaje(r.getEquipajeCollection());
             }
         }
         if (found == false) {
@@ -537,83 +546,136 @@ public class EditarReservaPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_BuscarBActionPerformed
 
-    public void LlenarCB(String selectedCO, String selectedCD, String selectedF, String selectedH, int selectedA) {
-        for (Rutas r : rutas) {
-            t.add(r.getCiudad().getNombreCiudad());
+    public void LlenarCB(Reserva r) {
+        for (Rutas ru : rutas) {
+            t.add(ru.getCiudad().getNombreCiudad());
         }
         List<String> noRep = new ArrayList(new LinkedHashSet<String>(t));
         for (String s : noRep) {
             this.CiudadOrigenCB.addItem(s);
         }
-        t.clear();
-        this.CiudadDestinoCB.addItem("Seleccione una ciudad de destino");
-        this.selectedCO = selectedCO;
-        for (Rutas r : rutas) {
-            if (r.getRutasPK().getCiudadOrigen().equals(selectedCO)) {
-                t.add(r.getRutasPK().getCiudadDestino());
-            }
+        pasajeroCedula.setText(String.valueOf(r.getReservaPK().getPasajeroCedula()));
+        TipoDePagoCB.setSelectedItem(r.getTipoDePago());
+        CiudadOrigenCB.setSelectedItem(r.getReservaPK().getCiudadOrigen());
+        CiudadDestinoCB.setSelectedItem(r.getReservaPK().getCiudadDestino());
+        try {
+            FechaViajeCB.setSelectedItem(convertirFecha(r.getFechaViaje().toString()));
+        } catch (ParseException ex) {
+            Logger.getLogger(EditarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        noRep = new ArrayList(new LinkedHashSet<String>(t));
-        for (String s : noRep) {
-            this.CiudadDestinoCB.addItem(s);
-        }
-        CiudadDestinoCB.setEnabled(true);
-        t.clear();
-        this.FechaViajeCB.addItem("Seleccione una fecha de viaje");
-        this.selectedCD = selectedCD;
-        for (Rutas r : rutas) {
-            if (r.getRutasPK().getCiudadOrigen().equals(selectedCO) && r.getRutasPK().getCiudadDestino().equals(selectedCD)) {
-                fecha = r.getFechaViaje();
-                try {
-                    t.add(convertirFecha(r.getFechaViaje().toString()));
-                } catch (ParseException ex) {
-                    Logger.getLogger(EditarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        noRep = new ArrayList(new LinkedHashSet<String>(t));
-        for (String s : noRep) {
-            this.FechaViajeCB.addItem(s);
-        }
-        FechaViajeCB.setEnabled(true);
-        t.clear();
-        this.HoraViajeCB.addItem("Seleccione una hora de viaje");
-        this.selectedF = selectedF;
-        for (Rutas r : rutas) {
-            System.out.print(r.getHoraViaje().toString().substring(11, 16));
-            try {
-                if (r.getRutasPK().getCiudadOrigen().equals(selectedCO) && r.getRutasPK().getCiudadDestino().equals(selectedCD) && convertirFecha(r.getFechaViaje().toString()).equals(selectedF)) {
-                    hora = r.getHoraViaje();
-                }
-            } catch (ParseException ex) {
-                Logger.getLogger(EditarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            t.add(r.getHoraViaje().toString().substring(11, 16));
-
-        }
-        noRep = new ArrayList(new LinkedHashSet<String>(t));
-        for (String s : noRep) {
-            this.HoraViajeCB.addItem(s);
-        }
-        HoraViajeCB.setEnabled(true);
-        t.clear();
-        this.AutobusCB.addItem("Seleccione un autobus");
-        this.selectedH = selectedH;
-        for (Rutas r : rutas) {
-            try {
-                if (r.getRutasPK().getCiudadOrigen().equals(selectedCO) && r.getRutasPK().getCiudadDestino().equals(selectedCD) && convertirFecha(r.getFechaViaje().toString()).equals(selectedF) && r.getHoraViaje().toString().substring(11, 16).equals(selectedH)) {
-                    t.add(r.getAutobus().getIdautobus().toString());
-                }
-            } catch (ParseException ex) {
-                Logger.getLogger(EditarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-        for (String s : t) {
-            this.AutobusCB.addItem(s);
-        }
-        AutobusCB.setEnabled(true);
-        this.selectedA = selectedA;
+        HoraViajeCB.setSelectedItem(r.getHoraSalida().toString().substring(11, 16));
+        AutobusCB.setSelectedItem(String.valueOf(r.getReservaPK().getAutobusidautobus()));
+        reservaPK.setPasajeroCedula(Long.parseLong(pasajeroCedula.getText()));
+        reservaPK.setIdreserva(idreserva.getText());
+        reserva.setReservaPK(reservaPK);
+        reserva.setPuesto(r.getPuesto());
+        reserva.setPrecioAndIdruta(rutas);
+        reserva.setEquipajeCollection(r.getEquipajeCollection());
+        reserva.setRutas(r.getRutas());
+//        this.CiudadDestinoCB.addItem("Seleccione una ciudad de destino");
+//        reservaPK.setCiudadOrigen(r.getReservaPK().getCiudadOrigen());
+//        for (Rutas ru : rutas) {
+//            if (ru.getRutasPK().getCiudadOrigen().equals(r.getReservaPK().getCiudadOrigen())) {
+//                t.add(ru.getRutasPK().getCiudadDestino());
+//            }
+//        }
+//        noRep = new ArrayList(new LinkedHashSet<String>(t));
+//        for (String s : noRep) {
+//            this.CiudadDestinoCB.addItem(s);
+//        }
+//        CiudadDestinoCB.setEnabled(true);
+//        t.clear();
+//        fechas = new ArrayList <Date>();
+//        this.FechaViajeCB.addItem("Seleccione una fecha de viaje");
+//        reservaPK.setCiudadDestino(r.getReservaPK().getCiudadDestino());
+//        for (Rutas ru : rutas) {
+//            if (ru.getRutasPK().getCiudadOrigen().equals(r.getReservaPK().getCiudadOrigen()) && ru.getRutasPK().getCiudadDestino().equals(r.getReservaPK().getCiudadDestino())) {
+//                fechas.add(r.getFechaViaje());
+//                try {
+//                    fechas.add(r.getFechaViaje());
+//                    t.add(convertirFecha(r.getFechaViaje().toString()));
+//
+//                } catch (ParseException ex) {
+//                    Logger.getLogger(EditarReservaPanel.class
+//                            .getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        }
+//        noRep = new ArrayList(new LinkedHashSet<String>(t));
+//        for (String s : noRep) {
+//            this.FechaViajeCB.addItem(s);
+//        }
+//        FechaViajeCB.setEnabled(true);
+//        t.clear();
+//        horas = new ArrayList <Date>();
+//        this.HoraViajeCB.addItem("Seleccione una hora de viaje");
+//        try {
+//            this.selectedF = convertirFecha(r.getFechaViaje().toString());
+//  
+//        } catch (ParseException ex) {
+//            Logger.getLogger(EditarReservaPanel.class
+//                    .getName()).log(Level.SEVERE, null, ex);
+//        }
+//        for (Rutas ru : rutas) {
+//            try {
+//                if (ru.getRutasPK().getCiudadOrigen().equals(r.getReservaPK().getCiudadOrigen()) && ru.getRutasPK().getCiudadDestino().equals(r.getReservaPK().getCiudadDestino()) && convertirFecha(ru.getFechaViaje().toString()).equals(convertirFecha(r.getFechaViaje().toString()))) {
+//                    horas.add(ru.getHoraViaje());
+//                    t.add(ru.getHoraViaje().toString().substring(11, 16));
+//
+//                }
+//            } catch (ParseException ex) {
+//                Logger.getLogger(EditarReservaPanel.class
+//                        .getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        noRep = new ArrayList(new LinkedHashSet<String>(t));
+//        for (String s : noRep) {
+//            this.HoraViajeCB.addItem(s);
+//        }
+//        HoraViajeCB.setEnabled(true);
+//        t.clear();
+//        this.AutobusCB.addItem("Seleccione un autobus");
+//        this.selectedH = r.getHoraSalida().toString().substring(11, 16);
+//        for (Rutas ru : rutas) {
+//            try {
+//                if (ru.getRutasPK().getCiudadOrigen().equals(r.getReservaPK().getCiudadOrigen()) && ru.getRutasPK().getCiudadDestino().equals(r.getReservaPK().getCiudadDestino()) && convertirFecha(ru.getFechaViaje().toString()).equals(convertirFecha(r.getFechaViaje().toString())) && ru.getHoraViaje().toString().substring(11, 16).equals(r.getHoraSalida().toString().substring(11, 16))) {
+//                    t.add(ru.getAutobus().getIdautobus().toString());
+//
+//                }
+//            } catch (ParseException ex) {
+//                Logger.getLogger(EditarReservaPanel.class
+//                        .getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//        }
+//        for (String s : t) {
+//            this.AutobusCB.addItem(s);
+//        }
+//        AutobusCB.setEnabled(true);
+//        pasajeroCedula.setText(String.valueOf(r.getReservaPK().getPasajeroCedula()));
+//        this.selectedA = r.getReservaPK().getAutobusidautobus();
+//        reservaPK.setPasajeroCedula(Long.parseLong(pasajeroCedula.getText()));
+//        reservaPK.setIdreserva(idreserva.getText());
+//        reserva.setReservaPK(reservaPK);
+//        reserva.setPuesto(reservas, autobuses);
+//        reserva.setPrecioAndIdruta(rutas);
+//        reserva.setEquipajeCollection(r.getEquipajeCollection());
+//        reserva.setRutas(r.getRutas());
+//        TipoDePagoCB.setSelectedItem(r.getTipoDePago());
+//        CiudadOrigenCB.setSelectedItem(r.getReservaPK().getCiudadOrigen());
+//        CiudadDestinoCB.setSelectedItem(r.getReservaPK().getCiudadDestino());
+//        try {
+//            FechaViajeCB.setSelectedItem(convertirFecha(r.getFechaViaje().toString()));
+//            fecha = fechas.get(FechaViajeCB.getSelectedIndex() - 1);
+//
+//        } catch (ParseException ex) {
+//            Logger.getLogger(EditarReservaPanel.class
+//                    .getName()).log(Level.SEVERE, null, ex);
+//        }
+//        HoraViajeCB.setSelectedItem(r.getHoraSalida().toString().substring(11, 16));
+//        hora = horas.get(HoraViajeCB.getSelectedIndex()-1);
+//        AutobusCB.setSelectedItem(String.valueOf(r.getReservaPK().getAutobusidautobus()));
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -640,7 +702,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
     private javax.swing.JTextField pasajeroCedula;
     // End of variables declaration//GEN-END:variables
         @Override
-    public void paint(Graphics g) {
+        public void paint(Graphics g) {
         imagen = new ImageIcon(getClass().getResource("./Imagenes/Fondogeneral.png")).getImage();
 
         g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
