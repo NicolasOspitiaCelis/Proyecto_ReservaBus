@@ -5,21 +5,19 @@
  */
 package vista;
 
-import controlador.ReservaJpaController;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelo.Reserva;
 import static vista.CrearReservaPanel.convertirFecha;
 import static vista.PrincipalFrame.reservaJpaController;
 import static vista.PrincipalFrame.PrincipalPanel;
+import static vista.PrincipalFrame.reproducirS;
 
 /**
  *
@@ -288,6 +286,8 @@ public class ConsultarReservaPanel extends javax.swing.JPanel {
         PrincipalPanel.add(ReservaP);
         PrincipalPanel.setVisible(true);
         this.setBounds(500,100,780, 700);
+        reproducirS("backS.mp3");
+        System.gc();
     }//GEN-LAST:event_AtrasBActionPerformed
 
     private void ConsultarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarBActionPerformed
@@ -310,11 +310,13 @@ public class ConsultarReservaPanel extends javax.swing.JPanel {
                 autobusResult.setText(String.valueOf(r.getReservaPK().getAutobusidautobus()));
                 rutaResult.setText(String.valueOf(r.getReservaPK().getIdrutas()));
                 found = true;
+                reproducirS("bonkS.mp3");
                 break;
             }
         }
         if(found == false){
             this.Clean();
+            reproducirS("errorS.mp3");
             JOptionPane.showMessageDialog(this, "No se ha encontrado la reservación");
         }
     }//GEN-LAST:event_ConsultarBActionPerformed

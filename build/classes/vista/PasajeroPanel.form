@@ -19,20 +19,20 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="EditarRuta" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                  <Component id="CrearRuta" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                  <Component id="EditarPasajeroB" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                  <Component id="CrearPasajeroB" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="170" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="EliminarRuta" min="-2" pref="200" max="-2" attributes="0"/>
-                  <Component id="ConsultarRuta" min="-2" pref="200" max="-2" attributes="0"/>
+                  <Component id="EliminarPasajeroB" min="-2" pref="200" max="-2" attributes="0"/>
+                  <Component id="ConsultarPasajeroB" min="-2" pref="200" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="AtrasRuta" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
               <Component id="TituloRuta" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -48,15 +48,15 @@
               </Group>
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="CrearRuta" min="-2" pref="170" max="-2" attributes="0"/>
-                  <Component id="ConsultarRuta" min="-2" pref="170" max="-2" attributes="0"/>
+                  <Component id="CrearPasajeroB" min="-2" pref="170" max="-2" attributes="0"/>
+                  <Component id="ConsultarPasajeroB" min="-2" pref="170" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="EditarRuta" min="-2" pref="170" max="-2" attributes="0"/>
-                  <Component id="EliminarRuta" min="-2" pref="170" max="-2" attributes="0"/>
+                  <Component id="EditarPasajeroB" min="-2" pref="170" max="-2" attributes="0"/>
+                  <Component id="EliminarPasajeroB" min="-2" pref="170" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="80" max="32767" attributes="0"/>
+              <EmptySpace pref="73" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -69,11 +69,11 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/vista/Imagenes/Trutas.png"/>
+          <Image iconType="3" name="/vista/Imagenes/PasajeroT.png"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="CrearRuta">
+    <Component class="javax.swing.JButton" name="CrearPasajeroB">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial Rounded MT Bold" size="13" style="0"/>
@@ -81,7 +81,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/vista/Imagenes/RutasIcon.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Crear ruta"/>
+        <Property name="text" type="java.lang.String" value="Crear pasajero"/>
         <Property name="alignmentX" type="float" value="100.0"/>
         <Property name="alignmentY" type="float" value="100.0"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -92,10 +92,10 @@
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CrearRutaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CrearPasajeroBActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="ConsultarRuta">
+    <Component class="javax.swing.JButton" name="ConsultarPasajeroB">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial Rounded MT Bold" size="13" style="0"/>
@@ -103,7 +103,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/vista/Imagenes/ConsultarIcon.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Consultar"/>
+        <Property name="text" type="java.lang.String" value="Consultar pasajero"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -112,10 +112,10 @@
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ConsultarRutaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ConsultarPasajeroBActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="EditarRuta">
+    <Component class="javax.swing.JButton" name="EditarPasajeroB">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial Rounded MT Bold" size="13" style="0"/>
@@ -123,7 +123,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/vista/Imagenes/ConsultarIcon.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Editar ruta"/>
+        <Property name="text" type="java.lang.String" value="Editar pasajero"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -132,10 +132,10 @@
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EditarRutaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EditarPasajeroBActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="EliminarRuta">
+    <Component class="javax.swing.JButton" name="EliminarPasajeroB">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial Rounded MT Bold" size="13" style="0"/>
@@ -143,7 +143,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/vista/Imagenes/EliminarIcon.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Eliminar ruta"/>
+        <Property name="text" type="java.lang.String" value="Eliminar pasajero"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -152,7 +152,7 @@
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EliminarRutaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EliminarPasajeroBActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="AtrasRuta">

@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import static vista.PrincipalFrame.PrincipalPanel;
+import static vista.PrincipalFrame.reproducirS;
 
 /**
  *
@@ -77,6 +78,7 @@ public class OtroMenu extends javax.swing.JPanel {
         PrincipalPanel.add(Menu);
         PrincipalPanel.setVisible(true);
         this.setBounds(500,100,780, 700);
+        reproducirS("backS.mp3");
     }//GEN-LAST:event_AtrasBActionPerformed
 
 

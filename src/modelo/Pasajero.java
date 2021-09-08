@@ -112,6 +112,11 @@ public class Pasajero implements Serializable {
         }
         return true;
     }
+    
+    public boolean equals2(Pasajero pasajero){
+        if(this.cedula == pasajero.getCedula() && this.nombre.equals(pasajero.getNombre()) && this.tipoDeDocumento.equals(pasajero.getTipoDeDocumento())) return true;
+        else{return false;}
+    }
 
     @Override
     public String toString() {

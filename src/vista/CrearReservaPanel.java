@@ -22,8 +22,8 @@ import modelo.ReservaPK;
 import modelo.Rutas;
 import static vista.PrincipalFrame.PrincipalPanel;
 import static vista.PrincipalFrame.autobuses;
+import static vista.PrincipalFrame.reproducirS;
 import static vista.PrincipalFrame.reservaJpaController;
-import static vista.PrincipalFrame.reservas;
 import static vista.PrincipalFrame.rutas;
 /**
  *
@@ -36,7 +36,10 @@ public class CrearReservaPanel extends javax.swing.JPanel {
     private Reserva reserva = new Reserva();
     private ReservaPK reservaPK = new ReservaPK();
     private ArrayList <Date> fechas;
+    private ArrayList <Date> fechasNoRep;
     private ArrayList <Date> horas;
+    private ArrayList <Date> horasNoRep;
+    protected List <Reserva> reservas = reservaJpaController.findReservaEntities();
     /**
      * Creates new form CrearReservaPanel
      */
@@ -123,11 +126,6 @@ public class CrearReservaPanel extends javax.swing.JPanel {
         CiudadOrigenCB.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 CiudadOrigenCBItemStateChanged(evt);
-            }
-        });
-        CiudadOrigenCB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CiudadOrigenCBActionPerformed(evt);
             }
         });
 
@@ -289,9 +287,9 @@ public class CrearReservaPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(AtrasB)
-                .addGap(72, 72, 72)
+                .addGap(102, 102, 102)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,9 +299,9 @@ public class CrearReservaPanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(AtrasB, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
+                        .addGap(53, 53, 53)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -315,12 +313,10 @@ public class CrearReservaPanel extends javax.swing.JPanel {
         PrincipalPanel.add(ReservaP);
         PrincipalPanel.setVisible(true);
         this.setBounds(500,100,780, 700);
+        this.setBounds(500,100,780, 700);
+        reproducirS("backS.mp3");
+        System.gc();
     }//GEN-LAST:event_AtrasBActionPerformed
-
-    private void CiudadOrigenCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CiudadOrigenCBActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_CiudadOrigenCBActionPerformed
 
     private void CiudadOrigenCBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CiudadOrigenCBItemStateChanged
         // TODO add your handling code here:
@@ -363,6 +359,7 @@ public class CrearReservaPanel extends javax.swing.JPanel {
                         Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                fechasNoRep = new ArrayList(new LinkedHashSet<Date>(fechas));
                 List<String> noRep = new ArrayList(new LinkedHashSet<String>(t));
                 for (String s : noRep){
                     this.FechaViajeCB.addItem(s);
@@ -383,7 +380,8 @@ public class CrearReservaPanel extends javax.swing.JPanel {
                 t.clear();
                 horas = new ArrayList <Date>();
                 this.HoraViajeCB.addItem("Seleccione una hora de viaje");
-                reserva.setFechaViaje(fechas.get(FechaViajeCB.getSelectedIndex()-1));
+                reserva.setFechaViaje(fechasNoRep.get(FechaViajeCB.getSelectedIndex()-1));
+                
                 for (Rutas r : rutas){
                     try { 
                         if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()) && convertirFecha(r.getFechaViaje().toString()).equals(convertirFecha(reserva.getFechaViaje().toString()))){
@@ -395,6 +393,7 @@ public class CrearReservaPanel extends javax.swing.JPanel {
                     }
                     
                 }
+                horasNoRep = new ArrayList(new LinkedHashSet<Date>(horas));
                 List<String> noRep = new ArrayList(new LinkedHashSet<String>(t));
                 for (String s : noRep){
                     this.HoraViajeCB.addItem(s);
@@ -429,12 +428,16 @@ public class CrearReservaPanel extends javax.swing.JPanel {
                 PrincipalPanel.add(ReservaP);
                 PrincipalPanel.setVisible(true);
                 this.setBounds(500,100,780, 700);
+                reproducirS("bonkS.mp3");
+                System.gc();
             } catch (Exception ex) {
                 Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                reproducirS("errorS.mp3");
                 JOptionPane.showMessageDialog(this, "Ha ocurrido un error. "+ex);
             }
         }
         else{
+            reproducirS("errorS.mp3");
             JOptionPane.showMessageDialog(this, "El ID de reserva esta repetido, por favor ingrese uno diferente");
         }
     }//GEN-LAST:event_HacerReservaBActionPerformed
@@ -445,7 +448,7 @@ public class CrearReservaPanel extends javax.swing.JPanel {
             if(HoraViajeCB.getSelectedIndex()>0){
                 t.clear();
                 this.AutobusCB.addItem("Seleccione un autobus");
-                reserva.setHoraSalida(horas.get(HoraViajeCB.getSelectedIndex()-1));
+                reserva.setHoraSalida(horasNoRep.get(HoraViajeCB.getSelectedIndex()-1));
                 for (Rutas r : rutas){
                     try {
                         if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()) && convertirFecha(r.getFechaViaje().toString()).equals(convertirFecha(reserva.getFechaViaje().toString())) && r.getHoraViaje().toString().substring(11,16).equals(reserva.getHoraSalida().toString().substring(11,16)))

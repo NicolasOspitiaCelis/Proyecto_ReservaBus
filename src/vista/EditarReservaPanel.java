@@ -24,6 +24,7 @@ import modelo.ReservaPK;
 import static vista.CrearReservaPanel.convertirFecha;
 import static vista.PrincipalFrame.PrincipalPanel;
 import static vista.PrincipalFrame.autobusJpaController;
+import static vista.PrincipalFrame.reproducirS;
 import static vista.PrincipalFrame.reservaJpaController;
 import static vista.PrincipalFrame.rutasJpaController;
 
@@ -38,8 +39,10 @@ public class EditarReservaPanel extends javax.swing.JPanel {
     private Reserva reservaP;
     private Reserva reserva = new Reserva();
     private ReservaPK reservaPK = new ReservaPK();
-    private ArrayList<Date> fechas;
-    private ArrayList<Date> horas;
+    private ArrayList <Date> fechas;
+    private ArrayList <Date> fechasNoRep;
+    private ArrayList <Date> horas;
+    private ArrayList <Date> horasNoRep;
     protected List <Rutas> rutas = rutasJpaController.findRutasEntities();
     protected List <Autobus> autobuses = autobusJpaController.findAutobusEntities();
     protected List <Reserva> reservas = reservaJpaController.findReservaEntities();
@@ -148,11 +151,6 @@ public class EditarReservaPanel extends javax.swing.JPanel {
         CiudadOrigenCB.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 CiudadOrigenCBItemStateChanged(evt);
-            }
-        });
-        CiudadOrigenCB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CiudadOrigenCBActionPerformed(evt);
             }
         });
 
@@ -348,6 +346,8 @@ public class EditarReservaPanel extends javax.swing.JPanel {
         PrincipalPanel.add(ReservaP);
         PrincipalPanel.setVisible(true);
         this.setBounds(500, 100, 780, 700);
+        reproducirS("backS.mp3");
+        System.gc();
     }//GEN-LAST:event_AtrasBActionPerformed
 
     private void CiudadOrigenCBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CiudadOrigenCBItemStateChanged
@@ -374,11 +374,6 @@ public class EditarReservaPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_CiudadOrigenCBItemStateChanged
 
-    private void CiudadOrigenCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CiudadOrigenCBActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_CiudadOrigenCBActionPerformed
-
     private void CiudadDestinoCBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CiudadDestinoCBItemStateChanged
         // TODO add your handling code here:
         if(evt.getStateChange() == ItemEvent.SELECTED){
@@ -396,6 +391,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
                         Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                fechasNoRep = new ArrayList(new LinkedHashSet<Date>(fechas));
                 List<String> noRep = new ArrayList(new LinkedHashSet<String>(t));
                 for (String s : noRep){
                     this.FechaViajeCB.addItem(s);
@@ -416,7 +412,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
                 t.clear();
                 horas = new ArrayList <Date>();
                 this.HoraViajeCB.addItem("Seleccione una hora de viaje");
-                reserva.setFechaViaje(fechas.get(FechaViajeCB.getSelectedIndex()-1));
+                reserva.setFechaViaje(fechasNoRep.get(FechaViajeCB.getSelectedIndex()-1));
                 for (Rutas r : rutas){
                     try { 
                         if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()) && convertirFecha(r.getFechaViaje().toString()).equals(convertirFecha(reserva.getFechaViaje().toString()))){
@@ -428,6 +424,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
                     }
                     
                 }
+                horasNoRep = new ArrayList(new LinkedHashSet<Date>(horas));
                 List<String> noRep = new ArrayList(new LinkedHashSet<String>(t));
                 for (String s : noRep){
                     this.HoraViajeCB.addItem(s);
@@ -447,7 +444,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
             if(HoraViajeCB.getSelectedIndex()>0){
                 t.clear();
                 this.AutobusCB.addItem("Seleccione un autobus");
-                reserva.setHoraSalida(horas.get(HoraViajeCB.getSelectedIndex()-1));
+                reserva.setHoraSalida(horasNoRep.get(HoraViajeCB.getSelectedIndex()-1));
                 for (Rutas r : rutas){
                     try {
                         if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()) && convertirFecha(r.getFechaViaje().toString()).equals(convertirFecha(reserva.getFechaViaje().toString())) && r.getHoraViaje().toString().substring(11,16).equals(reserva.getHoraSalida().toString().substring(11,16)))
@@ -468,20 +465,6 @@ public class EditarReservaPanel extends javax.swing.JPanel {
             this.AutobusCB.removeAllItems();
         }
     }//GEN-LAST:event_HoraViajeCBItemStateChanged
-
-    public void Clean() {
-        pasajeroCedula.setText("");
-        TipoDePagoCB.setSelectedIndex(0);
-        CiudadOrigenCB.setSelectedIndex(0);
-        CiudadDestinoCB.removeAllItems();
-        FechaViajeCB.removeAllItems();
-        HoraViajeCB.removeAllItems();
-        AutobusCB.removeAllItems();
-        fechas = null;
-        horas = null;
-        reserva = new Reserva();
-        reservaPK = new ReservaPK();
-}
 
     private void TipoDePagoCBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TipoDePagoCBItemStateChanged
         // TODO add your handling code here:
@@ -510,11 +493,13 @@ public class EditarReservaPanel extends javax.swing.JPanel {
                 this.LlenarCB(r);
                 found = true;
                 this.setVisibleA();
+                reproducirS("bonkS.mp3");
                 break;
             }
         }
         if (found == false) {
             this.Clean();
+            reproducirS("errorS.mp3");
             JOptionPane.showMessageDialog(this, "No se ha encontrado la reservación");
         }
     }//GEN-LAST:event_BuscarBActionPerformed
@@ -522,6 +507,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
     private void EditarReservaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarReservaBActionPerformed
         // TODO add your handling code here:
         if(reserva.equals2(reservaP)){
+            reproducirS("errorS.mp3");
             JOptionPane.showMessageDialog(this, "No ha cambiado información de la reservación, realice un cambio.");
         }
         else{
@@ -534,9 +520,11 @@ public class EditarReservaPanel extends javax.swing.JPanel {
                 PrincipalPanel.add(EditarRP);
                 PrincipalPanel.setVisible(true);
                 this.setBounds(500, 100, 780, 700);
+                reproducirS("bonkS.mp3");
                 System.gc();
             } catch (Exception ex) {
                 Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                reproducirS("errorS.mp3");
                 JOptionPane.showMessageDialog(this, "Ha ocurrido un error. " + ex);
             }
         }
@@ -571,6 +559,20 @@ public class EditarReservaPanel extends javax.swing.JPanel {
         reservaP = new Reserva(reservaPK, reserva.getTipoDePago(), reserva.getPuesto(), reserva.getFechaViaje(), reserva.getHoraSalida(), reserva.getPrecio());
     }
 
+        public void Clean() {
+        pasajeroCedula.setText("");
+        TipoDePagoCB.setSelectedIndex(0);
+        CiudadOrigenCB.setSelectedIndex(0);
+        CiudadDestinoCB.removeAllItems();
+        FechaViajeCB.removeAllItems();
+        HoraViajeCB.removeAllItems();
+        AutobusCB.removeAllItems();
+        fechas = null;
+        horas = null;
+        reserva = new Reserva();
+        reservaPK = new ReservaPK();
+}
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AtrasB;
     private javax.swing.JComboBox<String> AutobusCB;

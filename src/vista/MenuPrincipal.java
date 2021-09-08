@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import static vista.PrincipalFrame.PrincipalPanel;
+import static vista.PrincipalFrame.reproducirS;
 
 /**
  *
@@ -35,7 +36,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
 
         MenuB = new javax.swing.JButton();
         ReservaB = new javax.swing.JButton();
-        RutasB = new javax.swing.JButton();
+        PasajeroB = new javax.swing.JButton();
 
         MenuB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/Imagenes/Titulo.png"))); // NOI18N
         MenuB.setContentAreaFilled(false);
@@ -55,12 +56,15 @@ public class MenuPrincipal extends javax.swing.JPanel {
             }
         });
 
-        RutasB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/Imagenes/Trutas.png"))); // NOI18N
-        RutasB.setContentAreaFilled(false);
-        RutasB.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/Imagenes/Trutas_G.png"))); // NOI18N
-        RutasB.addActionListener(new java.awt.event.ActionListener() {
+        PasajeroB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/Imagenes/PasajeroT.png"))); // NOI18N
+        PasajeroB.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        PasajeroB.setBorderPainted(false);
+        PasajeroB.setContentAreaFilled(false);
+        PasajeroB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        PasajeroB.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/Imagenes/PasajeroT_G.png"))); // NOI18N
+        PasajeroB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RutasBActionPerformed(evt);
+                PasajeroBActionPerformed(evt);
             }
         });
 
@@ -75,11 +79,10 @@ public class MenuPrincipal extends javax.swing.JPanel {
                         .addComponent(MenuB))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(172, 172, 172)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(RutasB, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(ReservaB))))
+                        .addComponent(ReservaB))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(PasajeroB, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -89,9 +92,9 @@ public class MenuPrincipal extends javax.swing.JPanel {
                 .addComponent(MenuB, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(ReservaB, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(RutasB, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(PasajeroB, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -103,17 +106,8 @@ public class MenuPrincipal extends javax.swing.JPanel {
         PrincipalPanel.add(ReservaP);
         PrincipalPanel.setVisible(true);
         this.setBounds(500,100,780, 700);
+        reproducirS("buttonS.mp3");
     }//GEN-LAST:event_ReservaBActionPerformed
-
-    private void RutasBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RutasBActionPerformed
-        // TODO add your handling code here:
-        RutasPanel RutasP = new RutasPanel();
-        PrincipalPanel.setVisible(false);
-        PrincipalPanel.removeAll();
-        PrincipalPanel.add(RutasP);
-        PrincipalPanel.setVisible(true);
-        this.setBounds(500,100,780, 700);
-    }//GEN-LAST:event_RutasBActionPerformed
 
     private void MenuBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBActionPerformed
         // TODO add your handling code here:
@@ -123,13 +117,25 @@ public class MenuPrincipal extends javax.swing.JPanel {
         PrincipalPanel.add(Menu);
         PrincipalPanel.setVisible(true);
         this.setBounds(500,100,780, 700);
+        reproducirS("buttonS.mp3");
     }//GEN-LAST:event_MenuBActionPerformed
+
+    private void PasajeroBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasajeroBActionPerformed
+        // TODO add your handling code here:
+        PasajeroPanel PasajeroP = new PasajeroPanel();
+        PrincipalPanel.setVisible(false);
+        PrincipalPanel.removeAll();
+        PrincipalPanel.add(PasajeroP);
+        PrincipalPanel.setVisible(true);
+        this.setBounds(500,100,780, 700);
+        reproducirS("buttonS.mp3");
+    }//GEN-LAST:event_PasajeroBActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton MenuB;
+    private javax.swing.JButton PasajeroB;
     private javax.swing.JButton ReservaB;
-    private javax.swing.JButton RutasB;
     // End of variables declaration//GEN-END:variables
         
         @Override

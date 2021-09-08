@@ -209,17 +209,17 @@ public class Reserva implements Serializable {
         return "modelo.Reserva[ reservaPK=" + reservaPK + "]";
     }
     public void setPuesto(List <Reserva> reservas, List <Autobus> autobuses){
-        int contador = 0;
+        int max = 0;
         int sillas = 0;
         for(Reserva r : reservas){
-            if(r.getReservaPK().getCiudadOrigen().equals(this.getReservaPK().getCiudadOrigen()) && r.getReservaPK().getCiudadDestino().equals(this.getReservaPK().getCiudadDestino()) && r.getReservaPK().getAutobusidautobus() == this.getReservaPK().getAutobusidautobus() && r.getFechaViaje().toString().equals(this.getFechaViaje().toString()) && r.getHoraSalida().toString().equals(this.getHoraSalida().toString())){
-                contador++;
+            if(r.getReservaPK().getIdrutas() == this.getReservaPK().getIdrutas() && r.getReservaPK().getCiudadOrigen().equals(this.getReservaPK().getCiudadOrigen()) && r.getReservaPK().getCiudadDestino().equals(this.getReservaPK().getCiudadDestino()) && r.getReservaPK().getAutobusidautobus() == this.getReservaPK().getAutobusidautobus() && r.getFechaViaje().toString().equals(this.getFechaViaje().toString()) && r.getHoraSalida().toString().equals(this.getHoraSalida().toString())){
+                if(r.getPuesto()>=max) max = r.getPuesto();
             }
         }
         for(Autobus a : autobuses){
             if(this.getReservaPK().getAutobusidautobus() == a.getIdautobus()) sillas = a.getNumeroDeSillas();
         }
-        this.setPuesto(encontrarPuesto(reservas, this, sillas - (sillas - contador) + 1));
+        this.setPuesto(encontrarPuesto(reservas, this, max));
     }
     public void setPrecioAndIdruta(List <Rutas> rutas){
         for(Rutas r : rutas){

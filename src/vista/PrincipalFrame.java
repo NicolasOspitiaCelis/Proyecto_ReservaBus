@@ -6,17 +6,19 @@
 package vista;
 
 import controlador.AutobusJpaController;
-import controlador.CiudadJpaController;
 import controlador.EquipajeJpaController;
+import controlador.PasajeroJpaController;
 import controlador.ReservaJpaController;
 import controlador.RutasJpaController;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.List;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.swing.JOptionPane;
 import modelo.Autobus;
-import modelo.Ciudad;
 import modelo.Reserva;
 import modelo.Rutas;
 
@@ -28,12 +30,12 @@ import modelo.Rutas;
 public class PrincipalFrame extends javax.swing.JFrame{
 
     private ReservaPanel ReservaP;
-    private RutasPanel RutasP;
+    private PasajeroPanel RutasP;
     private MenuPrincipal Menu;
     protected static EntityManagerFactory emf = Persistence.createEntityManagerFactory("ReservaBusPU");
     protected static RutasJpaController rutasJpaController = new RutasJpaController(emf);
     protected static AutobusJpaController autobusJpaController = new AutobusJpaController(emf);
-    protected static CiudadJpaController ciudadJpaController = new CiudadJpaController(emf);
+    protected static PasajeroJpaController pasajeroJpaController = new PasajeroJpaController(emf);
     protected static ReservaJpaController reservaJpaController = new ReservaJpaController(emf);
     protected static EquipajeJpaController equipajeJpaController = new EquipajeJpaController(emf);
     protected static List <Rutas> rutas = rutasJpaController.findRutasEntities();
@@ -121,6 +123,16 @@ public class PrincipalFrame extends javax.swing.JFrame{
                 new PrincipalFrame().setVisible(true);
             }
         });
+    }
+    
+    public static void reproducirS(String dir){
+        try {
+                new JFXPanel();
+                String sonido = new File(dir).toURI().toString();
+                new MediaPlayer(new Media(sonido)).play();
+            } catch (Exception e) {
+                System.out.println("Ha ocurrido un error. " + e);
+            }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

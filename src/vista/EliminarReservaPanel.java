@@ -22,6 +22,7 @@ import static vista.CrearReservaPanel.convertirFecha;
 import static vista.PrincipalFrame.PrincipalPanel;
 import static vista.PrincipalFrame.reservaJpaController;
 import static vista.PrincipalFrame.equipajeJpaController;
+import static vista.PrincipalFrame.reproducirS;
 
 /**
  *
@@ -302,6 +303,8 @@ public class EliminarReservaPanel extends javax.swing.JPanel {
         PrincipalPanel.add(ReservaP);
         PrincipalPanel.setVisible(true);
         this.setBounds(500, 100, 780, 700);
+        reproducirS("backS.mp3");
+        System.gc();
     }//GEN-LAST:event_AtrasBActionPerformed
 
     private void BuscarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBActionPerformed
@@ -327,14 +330,15 @@ public class EliminarReservaPanel extends javax.swing.JPanel {
                 reserva = new Reserva(reservaPK, r.getTipoDePago(), r.getPuesto(), r.getFechaViaje(), r.getHoraSalida(), r.getPrecio());
                 reserva. setEquipajeCollection(r.getEquipajeCollection());
                 reserva.setRutas(r.getRutas());
-                if(reserva.getEquipajeCollection() != null) eliminarEquipaje(reserva);
                 found = true;
                 EliminarB.setVisible(true);
+                reproducirS("bonkS.mp3");
                 break;
             }
         }
         if(found == false){
             this.Clean();
+            reproducirS("errorS.mp3");
             JOptionPane.showMessageDialog(this, "No se ha encontrado la reservación");
         }
     }//GEN-LAST:event_BuscarBActionPerformed
@@ -342,6 +346,7 @@ public class EliminarReservaPanel extends javax.swing.JPanel {
     private void EliminarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBActionPerformed
         try {
             // TODO add your handling code here:
+            if(reserva.getEquipajeCollection() != null) eliminarEquipaje(reserva);
             reservaJpaController.destroy(reservaPK);
             JOptionPane.showMessageDialog(this, "Se ha eliminado la reserva con éxito");
             EliminarReservaPanel EliminarP = new EliminarReservaPanel();
@@ -350,12 +355,15 @@ public class EliminarReservaPanel extends javax.swing.JPanel {
             PrincipalPanel.add(EliminarP);
             PrincipalPanel.setVisible(true);
             this.setBounds(500, 100, 780, 700);
+            reproducirS("bonkS.mp3");
             System.gc();
         } catch (IllegalOrphanException ex) {
             Logger.getLogger(EliminarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+            reproducirS("errorS.mp3");
             JOptionPane.showMessageDialog(this, "Se ha producido un error: " + ex);
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(EliminarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+            reproducirS("errorS.mp3");
             JOptionPane.showMessageDialog(this, "La reserva que desea eliminar no existe.");
         }
     }//GEN-LAST:event_EliminarBActionPerformed

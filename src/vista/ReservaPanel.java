@@ -5,14 +5,11 @@
  */
 package vista;
 
-import controlador.ReservaJpaController;
 import java.awt.Graphics;
 import java.awt.Image;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.swing.ImageIcon;
-import modelo.Reserva;
 import static vista.PrincipalFrame.PrincipalPanel;
+import static vista.PrincipalFrame.reproducirS;
 
 /**
  *
@@ -157,6 +154,7 @@ public class ReservaPanel extends javax.swing.JPanel {
         PrincipalPanel.add(EliminarP);
         PrincipalPanel.setVisible(true);
         this.setBounds(500,100,780, 700);
+        reproducirS("buttonS.mp3");
     }//GEN-LAST:event_EliminarReservaActionPerformed
 
     private void ConsultarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarReservaActionPerformed
@@ -167,6 +165,7 @@ public class ReservaPanel extends javax.swing.JPanel {
         PrincipalPanel.add(ConsultaP);
         PrincipalPanel.setVisible(true);
         this.setBounds(500,100,780, 700);
+        reproducirS("buttonS.mp3");
     }//GEN-LAST:event_ConsultarReservaActionPerformed
 
     private void AtrasReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtrasReservaActionPerformed
@@ -176,7 +175,7 @@ public class ReservaPanel extends javax.swing.JPanel {
         PrincipalPanel.removeAll();
         PrincipalPanel.add(Menu);
         PrincipalPanel.setVisible(true);
-        this.setBounds(500,100,780, 700);
+        reproducirS("backS.mp3");
     }//GEN-LAST:event_AtrasReservaActionPerformed
 
     private void EditarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarReservaActionPerformed
@@ -187,6 +186,7 @@ public class ReservaPanel extends javax.swing.JPanel {
         PrincipalPanel.add(EditarP);
         PrincipalPanel.setVisible(true);
         this.setBounds(500,100,780, 700);
+        reproducirS("buttonS.mp3");
     }//GEN-LAST:event_EditarReservaActionPerformed
 
     private void CrearReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearReservaActionPerformed
@@ -197,6 +197,7 @@ public class ReservaPanel extends javax.swing.JPanel {
         PrincipalPanel.add(ReservaP);
         PrincipalPanel.setVisible(true);
         this.setBounds(500,100,780, 700);
+        reproducirS("buttonS.mp3");
     }//GEN-LAST:event_CrearReservaActionPerformed
 
 
