@@ -19,9 +19,9 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="AtrasB" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
               <Component id="Panel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="193" max="32767" attributes="0"/>
+              <EmptySpace pref="140" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -54,43 +54,48 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="idreservaL" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="pasajeroCedulaL" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="tipoDePagoL" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="ciudadOrigenL" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="ciudadDestinoL" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="fechaViajeL" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="horaViajeL" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="puestoL" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="precioL" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="autobusidautobusL" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="idrutaL" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="pagoResult" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                      <Component id="rutaResult" min="-2" pref="160" max="-2" attributes="0"/>
-                      <Component id="autobusResult" min="-2" pref="160" max="-2" attributes="0"/>
-                      <Component id="precioResult" min="-2" pref="160" max="-2" attributes="0"/>
-                      <Component id="puestoResult" min="-2" pref="160" max="-2" attributes="0"/>
-                      <Component id="horaResult" min="-2" pref="160" max="-2" attributes="0"/>
-                      <Component id="fechaResult" min="-2" pref="160" max="-2" attributes="0"/>
-                      <Component id="destinoResult" min="-2" pref="160" max="-2" attributes="0"/>
-                      <Component id="origenResult" min="-2" pref="160" max="-2" attributes="0"/>
-                      <Component id="cedulaResult" min="-2" pref="160" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
-                              <Component id="idreservaB" alignment="0" pref="105" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="idreservaL" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="pasajeroCedulaL" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="tipoDePagoL" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="ciudadOrigenL" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="ciudadDestinoL" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="fechaViajeL" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="horaViajeL" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="puestoL" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="precioL" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="autobusidautobusL" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="idrutaL" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="ConsultarB" min="-2" pref="82" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="autobusResult" min="-2" pref="176" max="-2" attributes="0"/>
+                              <Component id="cedulaResult" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="idreservaB" min="-2" pref="160" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                                  <Component id="ConsultarB" min="-2" pref="82" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="pagoResult" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                              <Component id="origenResult" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                              <Component id="destinoResult" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                              <Component id="fechaResult" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                              <Component id="horaResult" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                              <Component id="puestoResult" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                              <Component id="precioResult" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                              <Component id="rutaResult" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="32" max="32767" attributes="0"/>
+                  <EmptySpace pref="63" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -107,14 +112,21 @@
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Group type="102" attributes="0">
-                                                          <Group type="103" groupAlignment="3" attributes="0">
-                                                              <Component id="idreservaL" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="idreservaB" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="ConsultarB" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="idreservaL" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="ConsultarB" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="idreservaB" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" alignment="1" attributes="0">
                                                           <Group type="103" groupAlignment="0" attributes="0">
                                                               <Group type="102" alignment="1" attributes="0">
                                                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -141,12 +153,12 @@
                                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                                           <Component id="fechaViajeL" min="-2" max="-2" attributes="0"/>
                                                       </Group>
-                                                      <Component id="fechaResult" min="-2" pref="20" max="-2" attributes="0"/>
+                                                      <Component id="fechaResult" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                                   <Component id="horaViajeL" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="horaResult" min="-2" pref="20" max="-2" attributes="0"/>
+                                              <Component id="horaResult" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="puestoL" min="-2" max="-2" attributes="0"/>
@@ -361,7 +373,7 @@
               <Font name="Arial Rounded MT Bold" size="18" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Consulta"/>
+            <Property name="text" type="java.lang.String" value="Consultar reserva"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -193,10 +193,20 @@ public class Reserva implements Serializable {
         }
         return true;
     }
+    public boolean equals2(Reserva reserva) {
+        if(
+        this.reservaPK == reserva.getReservaPK() &&
+        this.tipoDePago == reserva.getTipoDePago() &&
+        this.puesto == reserva.getPuesto() &&
+        this.fechaViaje == reserva.getFechaViaje() &&
+        this.horaSalida == reserva.getHoraSalida() &&
+        this.precio == reserva.getPrecio()) return true;
+        else{return false;}
+    }
 
     @Override
     public String toString() {
-        return "modelo.Reserva[ reservaPK=" + reservaPK + " ]";
+        return "modelo.Reserva[ reservaPK=" + reservaPK + "]";
     }
     public void setPuesto(List <Reserva> reservas, List <Autobus> autobuses){
         int contador = 0;

@@ -16,13 +16,394 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="AtrasB" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+              <Component id="Panel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="133" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="300" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="AtrasB" min="-2" pref="72" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                      <Component id="Panel" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="63" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="AtrasB">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/vista/Imagenes/Atras.png"/>
+        </Property>
+        <Property name="contentAreaFilled" type="boolean" value="false"/>
+        <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/vista/Imagenes/Atras_G.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AtrasBActionPerformed"/>
+      </Events>
+    </Component>
+    <Container class="javax.swing.JPanel" name="Panel">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="idreservaL" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="pasajeroCedulaL" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="tipoDePagoL" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="ciudadOrigenL" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="ciudadDestinoL" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="fechaViajeL" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="horaViajeL" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="puestoL" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="precioL" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="autobusidautobusL" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="idrutaL" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="pagoResult" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="rutaResult" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="autobusResult" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="precioResult" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="puestoResult" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="horaResult" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="fechaResult" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="destinoResult" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="origenResult" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="cedulaResult" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
+                              <Component id="idreservaB" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="BuscarB" min="-2" pref="82" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="EliminarB" min="-2" pref="104" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="86" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jLabel1" min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Group type="102" alignment="1" attributes="0">
+                                                          <Group type="103" groupAlignment="3" attributes="0">
+                                                              <Component id="idreservaL" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="idreservaB" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="BuscarB" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Group type="102" alignment="1" attributes="0">
+                                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                                      <Group type="102" alignment="1" attributes="0">
+                                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                                              <Component id="pasajeroCedulaL" alignment="0" pref="20" max="32767" attributes="0"/>
+                                                                              <Component id="cedulaResult" alignment="0" max="32767" attributes="0"/>
+                                                                          </Group>
+                                                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                                              <Component id="pagoResult" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                                                                              <Component id="tipoDePagoL" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                          </Group>
+                                                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                                          <Component id="ciudadOrigenL" min="-2" max="-2" attributes="0"/>
+                                                                      </Group>
+                                                                      <Component id="origenResult" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                                                                  </Group>
+                                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                                  <Component id="ciudadDestinoL" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
+                                                              <Component id="destinoResult" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                          <Component id="fechaViajeL" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Component id="fechaResult" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="horaViajeL" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="horaResult" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="puestoL" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="puestoResult" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="precioL" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="precioResult" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="autobusidautobusL" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="autobusResult" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="idrutaL" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="rutaResult" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="EliminarB" min="-2" pref="38" max="-2" attributes="0"/>
+                  <EmptySpace pref="34" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="pasajeroCedulaL">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Cedula pasajero"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="idreservaL">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="ID reserva"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="tipoDePagoL">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Tipo de pago"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="ciudadOrigenL">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Ciudad origen"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="ciudadDestinoL">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Ciudad destino"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="fechaViajeL">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Fecha de viaje"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="horaViajeL">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Hora de viaje"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="autobusidautobusL">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="ID Autobus"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="puestoL">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Puesto"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="precioL">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Precio"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="idrutaL">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="ID Ruta"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="idreservaB">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="BuscarB">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Buscar"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BuscarBActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="cedulaResult">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="origenResult">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="destinoResult">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="fechaResult">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="horaResult">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="puestoResult">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="precioResult">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="autobusResult">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="rutaResult">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="pagoResult">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="18" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Eliminar reserva"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="EliminarB">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Eliminar"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EliminarBActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
 </Form>

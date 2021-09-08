@@ -10,7 +10,6 @@ import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.LinkedHashSet;
@@ -18,16 +17,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import modelo.Autobus;
 import modelo.Reserva;
 import modelo.Rutas;
-import modelo.Equipaje;
 import modelo.ReservaPK;
 import static vista.CrearReservaPanel.convertirFecha;
-import static vista.PrincipalFrame.reservaJpaController;
 import static vista.PrincipalFrame.PrincipalPanel;
-import static vista.PrincipalFrame.autobuses;
-import static vista.PrincipalFrame.reservas;
-import static vista.PrincipalFrame.rutas;
+import static vista.PrincipalFrame.autobusJpaController;
+import static vista.PrincipalFrame.reservaJpaController;
+import static vista.PrincipalFrame.rutasJpaController;
 
 /**
  *
@@ -37,18 +35,14 @@ public class EditarReservaPanel extends javax.swing.JPanel {
 
     private Image imagen;
     private List<String> t = new ArrayList();
-    private String selectedCO;
-    private String selectedCD;
-    private String selectedF;
-    private String selectedH;
-    private int selectedA;
-    private String selectedTP;
-    private Date fecha;
-    private Date hora;
+    private Reserva reservaP;
     private Reserva reserva = new Reserva();
     private ReservaPK reservaPK = new ReservaPK();
     private ArrayList<Date> fechas;
     private ArrayList<Date> horas;
+    protected List <Rutas> rutas = rutasJpaController.findRutasEntities();
+    protected List <Autobus> autobuses = autobusJpaController.findAutobusEntities();
+    protected List <Reserva> reservas = reservaJpaController.findReservaEntities();
 
     /**
      * Creates new form EditarReservaPanel
@@ -244,8 +238,11 @@ public class EditarReservaPanel extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addGap(71, 71, 71)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ReservacionT, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(idreserva)))
+                            .addComponent(idreserva)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(ReservacionT, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(89, 89, 89))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -266,14 +263,15 @@ public class EditarReservaPanel extends javax.swing.JPanel {
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(164, 164, 164)
-                                .addComponent(EditarReservaB, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 299, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(BuscarB, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(185, 185, 185)
+                .addComponent(EditarReservaB, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -471,24 +469,6 @@ public class EditarReservaPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_HoraViajeCBItemStateChanged
 
-    private void EditarReservaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarReservaBActionPerformed
-        // TODO add your handling code here:
-        try {
-            reservaJpaController.edit(reserva);
-            JOptionPane.showMessageDialog(this, "Se ha editado la reserva con éxito");
-            EditarReservaPanel EditarRP = new EditarReservaPanel();
-            PrincipalPanel.setVisible(false);
-            PrincipalPanel.removeAll();
-            PrincipalPanel.add(EditarRP);
-            PrincipalPanel.setVisible(true);
-            this.setBounds(500, 100, 780, 700);
-            System.gc();
-        } catch (Exception ex) {
-            Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Ha ocurrido un error. " + ex);
-        }
-    }//GEN-LAST:event_EditarReservaBActionPerformed
-
     public void Clean() {
         pasajeroCedula.setText("");
         TipoDePagoCB.setSelectedIndex(0);
@@ -497,14 +477,6 @@ public class EditarReservaPanel extends javax.swing.JPanel {
         FechaViajeCB.removeAllItems();
         HoraViajeCB.removeAllItems();
         AutobusCB.removeAllItems();
-        selectedCO = null;
-        selectedCD = null;
-        selectedF = null;
-        selectedH = null;
-        selectedA = 0;
-        selectedTP = null;
-        fecha = null;
-        hora = null;
         fechas = null;
         horas = null;
         reserva = new Reserva();
@@ -538,6 +510,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
                 this.LlenarCB(r);
                 found = true;
                 this.setVisibleA();
+                break;
             }
         }
         if (found == false) {
@@ -545,6 +518,29 @@ public class EditarReservaPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "No se ha encontrado la reservación");
         }
     }//GEN-LAST:event_BuscarBActionPerformed
+
+    private void EditarReservaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarReservaBActionPerformed
+        // TODO add your handling code here:
+        if(reserva.equals2(reservaP)){
+            JOptionPane.showMessageDialog(this, "No ha cambiado información de la reservación, realice un cambio.");
+        }
+        else{
+            try {
+                reservaJpaController.edit(reserva);
+                JOptionPane.showMessageDialog(this, "Se ha editado la reserva con éxito");
+                EditarReservaPanel EditarRP = new EditarReservaPanel();
+                PrincipalPanel.setVisible(false);
+                PrincipalPanel.removeAll();
+                PrincipalPanel.add(EditarRP);
+                PrincipalPanel.setVisible(true);
+                this.setBounds(500, 100, 780, 700);
+                System.gc();
+            } catch (Exception ex) {
+                Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha ocurrido un error. " + ex);
+            }
+        }
+    }//GEN-LAST:event_EditarReservaBActionPerformed
 
     public void LlenarCB(Reserva r) {
         for (Rutas ru : rutas) {
@@ -572,110 +568,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
         reserva.setPrecioAndIdruta(rutas);
         reserva.setEquipajeCollection(r.getEquipajeCollection());
         reserva.setRutas(r.getRutas());
-//        this.CiudadDestinoCB.addItem("Seleccione una ciudad de destino");
-//        reservaPK.setCiudadOrigen(r.getReservaPK().getCiudadOrigen());
-//        for (Rutas ru : rutas) {
-//            if (ru.getRutasPK().getCiudadOrigen().equals(r.getReservaPK().getCiudadOrigen())) {
-//                t.add(ru.getRutasPK().getCiudadDestino());
-//            }
-//        }
-//        noRep = new ArrayList(new LinkedHashSet<String>(t));
-//        for (String s : noRep) {
-//            this.CiudadDestinoCB.addItem(s);
-//        }
-//        CiudadDestinoCB.setEnabled(true);
-//        t.clear();
-//        fechas = new ArrayList <Date>();
-//        this.FechaViajeCB.addItem("Seleccione una fecha de viaje");
-//        reservaPK.setCiudadDestino(r.getReservaPK().getCiudadDestino());
-//        for (Rutas ru : rutas) {
-//            if (ru.getRutasPK().getCiudadOrigen().equals(r.getReservaPK().getCiudadOrigen()) && ru.getRutasPK().getCiudadDestino().equals(r.getReservaPK().getCiudadDestino())) {
-//                fechas.add(r.getFechaViaje());
-//                try {
-//                    fechas.add(r.getFechaViaje());
-//                    t.add(convertirFecha(r.getFechaViaje().toString()));
-//
-//                } catch (ParseException ex) {
-//                    Logger.getLogger(EditarReservaPanel.class
-//                            .getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//        }
-//        noRep = new ArrayList(new LinkedHashSet<String>(t));
-//        for (String s : noRep) {
-//            this.FechaViajeCB.addItem(s);
-//        }
-//        FechaViajeCB.setEnabled(true);
-//        t.clear();
-//        horas = new ArrayList <Date>();
-//        this.HoraViajeCB.addItem("Seleccione una hora de viaje");
-//        try {
-//            this.selectedF = convertirFecha(r.getFechaViaje().toString());
-//  
-//        } catch (ParseException ex) {
-//            Logger.getLogger(EditarReservaPanel.class
-//                    .getName()).log(Level.SEVERE, null, ex);
-//        }
-//        for (Rutas ru : rutas) {
-//            try {
-//                if (ru.getRutasPK().getCiudadOrigen().equals(r.getReservaPK().getCiudadOrigen()) && ru.getRutasPK().getCiudadDestino().equals(r.getReservaPK().getCiudadDestino()) && convertirFecha(ru.getFechaViaje().toString()).equals(convertirFecha(r.getFechaViaje().toString()))) {
-//                    horas.add(ru.getHoraViaje());
-//                    t.add(ru.getHoraViaje().toString().substring(11, 16));
-//
-//                }
-//            } catch (ParseException ex) {
-//                Logger.getLogger(EditarReservaPanel.class
-//                        .getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//        noRep = new ArrayList(new LinkedHashSet<String>(t));
-//        for (String s : noRep) {
-//            this.HoraViajeCB.addItem(s);
-//        }
-//        HoraViajeCB.setEnabled(true);
-//        t.clear();
-//        this.AutobusCB.addItem("Seleccione un autobus");
-//        this.selectedH = r.getHoraSalida().toString().substring(11, 16);
-//        for (Rutas ru : rutas) {
-//            try {
-//                if (ru.getRutasPK().getCiudadOrigen().equals(r.getReservaPK().getCiudadOrigen()) && ru.getRutasPK().getCiudadDestino().equals(r.getReservaPK().getCiudadDestino()) && convertirFecha(ru.getFechaViaje().toString()).equals(convertirFecha(r.getFechaViaje().toString())) && ru.getHoraViaje().toString().substring(11, 16).equals(r.getHoraSalida().toString().substring(11, 16))) {
-//                    t.add(ru.getAutobus().getIdautobus().toString());
-//
-//                }
-//            } catch (ParseException ex) {
-//                Logger.getLogger(EditarReservaPanel.class
-//                        .getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//        }
-//        for (String s : t) {
-//            this.AutobusCB.addItem(s);
-//        }
-//        AutobusCB.setEnabled(true);
-//        pasajeroCedula.setText(String.valueOf(r.getReservaPK().getPasajeroCedula()));
-//        this.selectedA = r.getReservaPK().getAutobusidautobus();
-//        reservaPK.setPasajeroCedula(Long.parseLong(pasajeroCedula.getText()));
-//        reservaPK.setIdreserva(idreserva.getText());
-//        reserva.setReservaPK(reservaPK);
-//        reserva.setPuesto(reservas, autobuses);
-//        reserva.setPrecioAndIdruta(rutas);
-//        reserva.setEquipajeCollection(r.getEquipajeCollection());
-//        reserva.setRutas(r.getRutas());
-//        TipoDePagoCB.setSelectedItem(r.getTipoDePago());
-//        CiudadOrigenCB.setSelectedItem(r.getReservaPK().getCiudadOrigen());
-//        CiudadDestinoCB.setSelectedItem(r.getReservaPK().getCiudadDestino());
-//        try {
-//            FechaViajeCB.setSelectedItem(convertirFecha(r.getFechaViaje().toString()));
-//            fecha = fechas.get(FechaViajeCB.getSelectedIndex() - 1);
-//
-//        } catch (ParseException ex) {
-//            Logger.getLogger(EditarReservaPanel.class
-//                    .getName()).log(Level.SEVERE, null, ex);
-//        }
-//        HoraViajeCB.setSelectedItem(r.getHoraSalida().toString().substring(11, 16));
-//        hora = horas.get(HoraViajeCB.getSelectedIndex()-1);
-//        AutobusCB.setSelectedItem(String.valueOf(r.getReservaPK().getAutobusidautobus()));
-        
+        reservaP = new Reserva(reservaPK, reserva.getTipoDePago(), reserva.getPuesto(), reserva.getFechaViaje(), reserva.getHoraSalida(), reserva.getPrecio());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -702,7 +595,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
     private javax.swing.JTextField pasajeroCedula;
     // End of variables declaration//GEN-END:variables
         @Override
-        public void paint(Graphics g) {
+    public void paint(Graphics g) {
         imagen = new ImageIcon(getClass().getResource("./Imagenes/Fondogeneral.png")).getImage();
 
         g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);

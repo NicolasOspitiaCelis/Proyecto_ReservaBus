@@ -7,6 +7,7 @@ package vista;
 
 import controlador.AutobusJpaController;
 import controlador.CiudadJpaController;
+import controlador.EquipajeJpaController;
 import controlador.ReservaJpaController;
 import controlador.RutasJpaController;
 import java.awt.event.ActionEvent;
@@ -34,10 +35,11 @@ public class PrincipalFrame extends javax.swing.JFrame{
     protected static AutobusJpaController autobusJpaController = new AutobusJpaController(emf);
     protected static CiudadJpaController ciudadJpaController = new CiudadJpaController(emf);
     protected static ReservaJpaController reservaJpaController = new ReservaJpaController(emf);
+    protected static EquipajeJpaController equipajeJpaController = new EquipajeJpaController(emf);
     protected static List <Rutas> rutas = rutasJpaController.findRutasEntities();
     protected static List <Autobus> autobuses = autobusJpaController.findAutobusEntities();
-    protected static List <Ciudad> ciudades = ciudadJpaController.findCiudadEntities();
     protected static List <Reserva> reservas = reservaJpaController.findReservaEntities();
+    
     /**
      * Creates new form PrincipalFrame
      */

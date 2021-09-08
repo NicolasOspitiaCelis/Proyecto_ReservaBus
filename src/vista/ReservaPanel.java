@@ -151,6 +151,12 @@ public class ReservaPanel extends javax.swing.JPanel {
 
     private void EliminarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarReservaActionPerformed
         // TODO add your handling code here:
+        EliminarReservaPanel EliminarP = new EliminarReservaPanel();
+        PrincipalPanel.setVisible(false);
+        PrincipalPanel.removeAll();
+        PrincipalPanel.add(EliminarP);
+        PrincipalPanel.setVisible(true);
+        this.setBounds(500,100,780, 700);
     }//GEN-LAST:event_EliminarReservaActionPerformed
 
     private void ConsultarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarReservaActionPerformed

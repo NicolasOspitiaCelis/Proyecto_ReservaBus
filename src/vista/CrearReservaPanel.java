@@ -9,7 +9,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -23,10 +22,12 @@ import modelo.Reserva;
 import modelo.ReservaPK;
 import modelo.Rutas;
 import static vista.PrincipalFrame.PrincipalPanel;
+import static vista.PrincipalFrame.autobusJpaController;
 import static vista.PrincipalFrame.autobuses;
 import static vista.PrincipalFrame.reservaJpaController;
 import static vista.PrincipalFrame.reservas;
 import static vista.PrincipalFrame.rutas;
+import static vista.PrincipalFrame.rutasJpaController;
 
 /**
  *
@@ -194,7 +195,7 @@ public class CrearReservaPanel extends javax.swing.JPanel {
 
         ReservacionT.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         ReservacionT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ReservacionT.setText("Reservación");
+        ReservacionT.setText("Crear reserva");
 
         jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel1.setText("Cedula pasajero");
