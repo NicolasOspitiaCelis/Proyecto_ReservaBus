@@ -17,6 +17,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelo.Autobus;
 import modelo.Reserva;
@@ -47,6 +48,8 @@ public class PrincipalFrame extends javax.swing.JFrame{
      */
     public PrincipalFrame() {
         initComponents();
+        this.setTitle("Rollanding - Buscando tu camino");
+        this.setIconImage(new ImageIcon(getClass().getResource("/vista/Imagenes/FrameIcon.png")).getImage());
         Menu = new MenuPrincipal();
         PrincipalPanel.setVisible(false);
         PrincipalPanel.removeAll();
