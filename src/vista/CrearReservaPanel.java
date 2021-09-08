@@ -17,18 +17,14 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.util.Date;
-import modelo.Autobus;
 import modelo.Reserva;
 import modelo.ReservaPK;
 import modelo.Rutas;
 import static vista.PrincipalFrame.PrincipalPanel;
-import static vista.PrincipalFrame.autobusJpaController;
 import static vista.PrincipalFrame.autobuses;
 import static vista.PrincipalFrame.reservaJpaController;
 import static vista.PrincipalFrame.reservas;
 import static vista.PrincipalFrame.rutas;
-import static vista.PrincipalFrame.rutasJpaController;
-
 /**
  *
  * @author Nicolas Ospitia
@@ -422,8 +418,8 @@ public class CrearReservaPanel extends javax.swing.JPanel {
             reservaPK.setPasajeroCedula(Long.parseLong(pasajeroCedula.getText()));
             reservaPK.setIdreserva(idreserva.getText());
             reserva.setReservaPK(reservaPK);
-            reserva.setPuesto(reservas, autobuses);
             reserva.setPrecioAndIdruta(rutas);
+            reserva.setPuesto(reservas, autobuses);
             try {
                 reservaJpaController.create(reserva);
                 JOptionPane.showMessageDialog(this, "Se ha creado la reserva con exito");
@@ -507,8 +503,6 @@ public class CrearReservaPanel extends javax.swing.JPanel {
         else if(month.equals("Dec")) month = "12";
         return year+"/"+month+"/"+day;
     }
-    
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AtrasB;

@@ -219,12 +219,21 @@ public class Reserva implements Serializable {
         for(Autobus a : autobuses){
             if(this.getReservaPK().getAutobusidautobus() == a.getIdautobus()) sillas = a.getNumeroDeSillas();
         }
-        this.setPuesto(sillas - (sillas - contador) + 1);
+        this.setPuesto(encontrarPuesto(reservas, this, sillas - (sillas - contador) + 1));
     }
     public void setPrecioAndIdruta(List <Rutas> rutas){
         for(Rutas r : rutas){
             if(r.getRutasPK().getCiudadOrigen().equals(this.getReservaPK().getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(this.getReservaPK().getCiudadDestino())) this.setPrecio(r.getPrecio());
             if(r.getRutasPK().getCiudadOrigen().equals(this.getReservaPK().getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(this.getReservaPK().getCiudadDestino()) && r.getRutasPK().getAutobusidautobus() == this.getReservaPK().getAutobusidautobus() && r.getFechaViaje().toString().equals(this.getFechaViaje().toString()) && r.getHoraViaje().toString().equals(this.getHoraSalida().toString())) this.getReservaPK().setIdrutas(r.getRutasPK().getIdrutas());
         }
+    }
+    public int encontrarPuesto(List <Reserva> reservas, Reserva reserva, int i){
+        reserva.setPuesto(i);
+        for(Reserva r : reservas){
+            if(reserva.getReservaPK().getIdrutas() == r.getReservaPK().getIdrutas() && reserva.getReservaPK().getAutobusidautobus() == r.getReservaPK().getAutobusidautobus()&& reserva.getReservaPK().getCiudadOrigen().equals(r.getReservaPK().getCiudadOrigen()) && reserva.getReservaPK().getCiudadDestino().equals(r.getReservaPK().getCiudadDestino()) && reserva.getFechaViaje().toString().equals(r.getFechaViaje().toString()) && reserva.getHoraSalida().toString().equals(r.getHoraSalida().toString()) && reserva.getPuesto() == r.getPuesto()){
+                return encontrarPuesto(reservas, reserva, reserva.getPuesto()-1);
+            }
+        }
+        return i;
     }
 }
