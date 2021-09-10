@@ -114,7 +114,7 @@ public class Pasajero implements Serializable {
     }
     
     public boolean equals2(Pasajero pasajero){
-        if(this.cedula == pasajero.getCedula() && this.nombre.equals(pasajero.getNombre()) && this.tipoDeDocumento.equals(pasajero.getTipoDeDocumento())) return true;
+        if(String.valueOf(this.cedula).equals(String.valueOf(pasajero.getCedula())) && this.nombre.equals(pasajero.getNombre()) && this.tipoDeDocumento.equals(pasajero.getTipoDeDocumento())) return true;
         else{return false;}
     }
 
