@@ -619,8 +619,10 @@ public class EditarReservaPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_BuscarBActionPerformed
 
     private void EditarReservaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarReservaBActionPerformed
-        //Se asignan los valores de reservaPK a los de la reserva a editar
+        //Se vuelve a editar el precio e id de ruta de los nuevos valores seleccionados
         reserva.setPrecioAndIdruta(RUTAS);
+        
+        //Se asignan los nuevos valores de reservaPK a los de la reserva a editar
         reserva.setReservaPK(reservaPK);
 
         //Una vez se presiona el botón de editar se corrobora primero que la reserva auxiliar y la reserva principal no sean iguales
@@ -631,16 +633,24 @@ public class EditarReservaPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "No ha cambiado información de la reservación, realice un cambio.");
         }
         
-        //En caso de haber encontrado diferencias entonces procede
+        /*
+        En caso de haber encontrado diferencias entonces procede con lo siguiente: puede que la reserva tenga equipajes o no,
+        Si existe reserva entonces borrara las reservas del equipaje actual, luego borrara la reserva actual de la base de datos y creará una nueva reserva con el mismo
+        id de resera y cedula de pasajero y realizará los cambios especificados por el usuario para la creación de una nueva reserva con dicha información.
+        En caso de no tener equipajes dicha reserva, entonces procedera con el mismo proceso anterior sin borrar equipajes.
+        */
         else{
             
             //Se presentan otros 2 casos, este primer caso considera que la reserva si tiene coleccion de equipajes
             if(reserva.getEquipajeCollection().size() > 0){
                 
+                //Primer se elimina todo el equipaje existente
                 eliminarEquipaje(reserva);
                 
+                //Se asigna un equipaje nulo
                 reserva.setEquipajeCollection(null);
                 
+                //Luego se ejecuta el proceso de eliminación y creación de la reserva
                 try {
                     reservaJpaController.destroy(reservaP.getReservaPK());
                     reservaJpaController.create(reserva);
@@ -648,22 +658,21 @@ public class EditarReservaPanel extends javax.swing.JPanel {
                     Logger.getLogger(EditarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-                boolean duplicated = false;
-                Collection <Equipaje> equipajes = null;
-                
-                //Se recorren todos estos equipajes asociados a la reserva
+                //Se recorren todos estos equipajes antiguos asociados a la reserva que se encuentran asegurados en reservaP
                 for(Equipaje equipaje : reservaP.getEquipajeCollection()){
                     try {
                         
-                        //Se crea un equipajePK con la nueva información del equipaje
+                        //Se crea un equipajePK con la nueva información del equipaje y se inicializa un equipa con toda la información nueva de la reserva
                         EquipajePK equipajePK = new EquipajePK(equipaje.getEquipajePK().getIdequipaje(), reserva.getReservaPK().getIdreserva(), reserva.getReservaPK().getPasajeroCedula(), reserva.getReservaPK().getCiudadOrigen(), reserva.getReservaPK().getCiudadDestino(), reserva.getReservaPK().getAutobusidautobus(), reserva.getReservaPK().getIdrutas());
                         Equipaje equipa = new Equipaje(equipajePK, equipaje.getPeso(), equipaje.getTipoDeEquipaje(), equipaje.getEstado());
+                        
+                        //Se agrega la reserva a la que esta asignada al equipaje
                         equipa.setReserva(reserva);
                         
                         //Se crea el equipaje nuevo
                         equipajeJpaController.create(equipa);
                         
-                        
+                        //Y se van agregando a la colección de la reserva en cuestión
                         reserva.getEquipajeCollection().add(equipa);
                         
                     //En caso de no poder ejecutar el edit entonces reproduce un sonido y muestra una ventana emergente con el error
@@ -683,6 +692,8 @@ public class EditarReservaPanel extends javax.swing.JPanel {
                 
                 //Ahora se procede a eliminar la reserva anterior e ingresar la nueva reserva
                 try {
+                    
+                    //Luego se edita la reserva una vez agregada toda la colección de equipajes
                     reservaJpaController.edit(reserva);
                     //En caso de todo ir correctamente entonces muestra una ventana emergente confirmando la acción
                     JOptionPane.showMessageDialog(this, "Se ha editado la reserva con éxito");
@@ -715,7 +726,8 @@ public class EditarReservaPanel extends javax.swing.JPanel {
                 
             }
             else {
-                //Primero ejecuta la función edit del controlador de reservas
+                
+                //En caso de no tener equipaje, se ejecuta el proceso de eliminación y creación de la reserva directamente
                 try {
                     reservaJpaController.destroy(reservaP.getReservaPK());
                     reservaJpaController.create(reserva);

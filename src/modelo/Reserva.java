@@ -1,14 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
+import controlador.exceptions.NoSpaceEntityException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,10 +24,6 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author Nicolas Ospitia
- */
 @Entity
 @Table(name = "reserva")
 @XmlRootElement
@@ -193,6 +187,8 @@ public class Reserva implements Serializable {
         }
         return true;
     }
+    
+    //Un función para verificar si 2 reservas son iguales
     public boolean equals2(Reserva reserva) {
         if(
         this.reservaPK == reserva.getReservaPK() &&
@@ -208,7 +204,9 @@ public class Reserva implements Serializable {
     public String toString() {
         return "modelo.Reserva[ reservaPK=" + reservaPK + "]";
     }
-    public void setPuesto(List <Reserva> reservas, List <Autobus> autobuses){
+    
+    //Función para asignar un puesto usando recursividad para obtener un puesto, también se tiene en cuenta si existen puestos libres luego de borrar reservas
+    public void setPuesto(List <Reserva> reservas, List <Autobus> autobuses) throws NoSpaceEntityException{
         int max = 1;
         int sillas = 0;
         for(Reserva r : reservas){
@@ -216,24 +214,56 @@ public class Reserva implements Serializable {
                 if(r.getPuesto()>=max) max = r.getPuesto();
             }
         }
+        
+        //También se identifican el número de sillas del id de autobus asignado a esa ruta
         for(Autobus a : autobuses){
             if(this.getReservaPK().getAutobusidautobus() == a.getIdautobus()) sillas = a.getNumeroDeSillas();
         }
-        this.setPuesto(encontrarPuesto(reservas, this, max));
+        
+        //En caso de superar el numero de sillas del autobus entonces se procede a enviar un mensaje con la excepción de NoSpace
+        if(max > sillas){
+            try {
+                throw new NoSpaceEntityException("Se ha superado el limite de reservas para este autobus");
+            } catch (NoSpaceEntityException ex) {
+                Logger.getLogger(Reserva.class.getName()).log(Level.SEVERE, null, ex);
+                throw ex;
+            }
+        }
+        
+        //En caso de haber espacio entonces procede a ubicar un puesto disponible para la reservación
+        else{
+            this.setPuesto(encontrarPuesto(reservas, this, max, max));
+        }
     }
+    
+    //Busca automaticamente el precio y el id de ruta que coincidan con la información de la ruta escogida
     public void setPrecioAndIdruta(List <Rutas> rutas){
         for(Rutas r : rutas){
             if(r.getRutasPK().getCiudadOrigen().equals(this.getReservaPK().getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(this.getReservaPK().getCiudadDestino())) this.setPrecio(r.getPrecio());
             if(r.getRutasPK().getCiudadOrigen().equals(this.getReservaPK().getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(this.getReservaPK().getCiudadDestino()) && r.getRutasPK().getAutobusidautobus() == this.getReservaPK().getAutobusidautobus() && r.getFechaViaje().toString().equals(this.getFechaViaje().toString()) && r.getHoraViaje().toString().equals(this.getHoraSalida().toString())) this.getReservaPK().setIdrutas(r.getRutasPK().getIdrutas());
         }
     }
-    public int encontrarPuesto(List <Reserva> reservas, Reserva reserva, int i){
+    
+    //Función recursiva que permite buscar un puesto teniendo en cuenta las reservaciones ya creadas
+    public int encontrarPuesto(List <Reserva> reservas, Reserva reserva, int i, int max){
+        
+        //Primero asigna este puesto a la reserva actual
         reserva.setPuesto(i);
-        for(Reserva r : reservas){
-            if(reserva.getReservaPK().getIdrutas() == r.getReservaPK().getIdrutas() && reserva.getReservaPK().getAutobusidautobus() == r.getReservaPK().getAutobusidautobus()&& reserva.getReservaPK().getCiudadOrigen().equals(r.getReservaPK().getCiudadOrigen()) && reserva.getReservaPK().getCiudadDestino().equals(r.getReservaPK().getCiudadDestino()) && reserva.getFechaViaje().toString().equals(r.getFechaViaje().toString()) && reserva.getHoraSalida().toString().equals(r.getHoraSalida().toString()) && reserva.getPuesto() == r.getPuesto()){
-                return encontrarPuesto(reservas, reserva, reserva.getPuesto()-1);
+        
+        //Evalua si el valor de entrada es igual a cero, eso querria decir que no existen espacios vacios entre todos los puestos existentes, entonces asigna un puesto más
+        if (i == 0) return max + 1;
+        
+        //En caso de no se igual a 0 entonces sigue buscando un espacio vacio en cual ubicar la nueva reservación
+        else {
+            for (Reserva r : reservas) {
+                if (reserva.getReservaPK().getIdrutas() == r.getReservaPK().getIdrutas() && reserva.getReservaPK().getAutobusidautobus() == r.getReservaPK().getAutobusidautobus() && reserva.getReservaPK().getCiudadOrigen().equals(r.getReservaPK().getCiudadOrigen()) && reserva.getReservaPK().getCiudadDestino().equals(r.getReservaPK().getCiudadDestino()) && reserva.getFechaViaje().toString().equals(r.getFechaViaje().toString()) && reserva.getHoraSalida().toString().equals(r.getHoraSalida().toString()) && reserva.getPuesto() == r.getPuesto()) {
+
+                    //En caso de no encontrar una coincidencia entonces procede a la recursividad disminuyendo el valor de entrada de la función
+                    return encontrarPuesto(reservas, reserva, reserva.getPuesto() - 1, max);
+                }
             }
+            //Finalmente retornando el valor del puesto disponible
+            return i;
         }
-        return i;
     }
 }

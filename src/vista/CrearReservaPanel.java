@@ -1,5 +1,6 @@
 package vista;
 
+import controlador.exceptions.NoSpaceEntityException;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
@@ -487,8 +488,12 @@ public class CrearReservaPanel extends javax.swing.JPanel {
             //Con esta función se detecta el precio de la ruta asignada a la reservación y el id de la ruta y se asignan a la reserva
             reserva.setPrecioAndIdruta(RUTAS);
             
-            //esta función permite ubicar un puesto disponible a la reserva entre los puesto no utilizados de una ruta
-            reserva.setPuesto(RESERVAS, AUTOBUSES);
+            try {
+                //esta función permite ubicar un puesto disponible a la reserva entre los puesto no utilizados de una ruta
+                reserva.setPuesto(RESERVAS, AUTOBUSES);
+            } catch (NoSpaceEntityException ex) {
+                Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
             reserva.setPasajero(pasajeroJpaController.findPasajero(Long.parseLong(pasajeroCedula.getText())));
             try {
                 
