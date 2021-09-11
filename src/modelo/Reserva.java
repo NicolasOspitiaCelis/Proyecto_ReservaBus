@@ -209,7 +209,7 @@ public class Reserva implements Serializable {
         return "modelo.Reserva[ reservaPK=" + reservaPK + "]";
     }
     public void setPuesto(List <Reserva> reservas, List <Autobus> autobuses){
-        int max = 0;
+        int max = 1;
         int sillas = 0;
         for(Reserva r : reservas){
             if(r.getReservaPK().getIdrutas() == this.getReservaPK().getIdrutas() && r.getReservaPK().getCiudadOrigen().equals(this.getReservaPK().getCiudadOrigen()) && r.getReservaPK().getCiudadDestino().equals(this.getReservaPK().getCiudadDestino()) && r.getReservaPK().getAutobusidautobus() == this.getReservaPK().getAutobusidautobus() && r.getFechaViaje().toString().equals(this.getFechaViaje().toString()) && r.getHoraSalida().toString().equals(this.getHoraSalida().toString())){

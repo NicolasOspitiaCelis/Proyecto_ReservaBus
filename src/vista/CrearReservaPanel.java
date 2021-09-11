@@ -21,6 +21,7 @@ import static vista.PrincipalFrame.autobusJpaController;
 import static vista.PrincipalFrame.reproducirS;
 import static vista.PrincipalFrame.reservaJpaController;
 import static vista.PrincipalFrame.rutasJpaController;
+import static vista.PrincipalFrame.pasajeroJpaController;
 
 public class CrearReservaPanel extends javax.swing.JPanel {
 
@@ -32,13 +33,13 @@ public class CrearReservaPanel extends javax.swing.JPanel {
     private ArrayList <Date> fechasNoRep;
     private ArrayList <Date> horas;
     private ArrayList <Date> horasNoRep;
-    protected List <Rutas> rutas = rutasJpaController.findRutasEntities();
-    protected List <Autobus> autobuses = autobusJpaController.findAutobusEntities();
-    protected List <Reserva> reservas = reservaJpaController.findReservaEntities();
+    private final List <Rutas> RUTAS = rutasJpaController.findRutasEntities();
+    private final List <Autobus> AUTOBUSES = autobusJpaController.findAutobusEntities();
+    private final List <Reserva> RESERVAS = reservaJpaController.findReservaEntities();
 
     public CrearReservaPanel() {
         initComponents();
-        for (Rutas r : rutas){
+        for (Rutas r : RUTAS){
             t.add(r.getCiudad().getNombreCiudad());
         }
         List<String> noRep = new ArrayList(new LinkedHashSet<String>(t));
@@ -322,7 +323,7 @@ public class CrearReservaPanel extends javax.swing.JPanel {
                 reservaPK.setCiudadOrigen(CiudadOrigenCB.getSelectedItem().toString());
                 
                 //Seguidamente se recorren todas las rutas de la base de datos y se almacenan todos los elementos que coincidad con una CiudadOrigen igual a la seleccionada
-                for (Rutas r : rutas){
+                for (Rutas r : RUTAS){
                     if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()))
                         t.add(r.getRutasPK().getCiudadDestino());
                 }
@@ -366,7 +367,7 @@ public class CrearReservaPanel extends javax.swing.JPanel {
                 reservaPK.setCiudadDestino(CiudadDestinoCB.getSelectedItem().toString());
                 
                 //Seguidamente se recorren todas las rutas de la base de datos y se almacenan todos los elementos que coincidad con una CiudadOrigen y CiudadDestino igual a la seleccionadas
-                for (Rutas r : rutas){
+                for (Rutas r : RUTAS){
                     if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()))
                         try {
                             
@@ -422,7 +423,7 @@ public class CrearReservaPanel extends javax.swing.JPanel {
                 Seguidamente se recorren todas las rutas de la base de datos y se almacenan todos los elementos que coincidad con una CiudadOrigen,
                 CiudadDestino y FechaViaje igual a la seleccionadas
                 */
-                for (Rutas r : rutas){
+                for (Rutas r : RUTAS){
                     try { 
                         if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()) && convertirFecha(r.getFechaViaje().toString()).equals(convertirFecha(reserva.getFechaViaje().toString()))){
                             
@@ -462,7 +463,7 @@ public class CrearReservaPanel extends javax.swing.JPanel {
         boolean repetido = false;
         
         //Luego se recorren todas las reservas buscando si existe coincidencia
-        for(Reserva r : reservas){
+        for(Reserva r : RESERVAS){
             
             //En caso de encontrar una coincidencia entonces cambia el estado de repetido, reproduce un sonido y muestra una ventana emergente dando el aviso
             if(idreserva.getText().equals(r.getReservaPK().getIdreserva())){
@@ -484,10 +485,11 @@ public class CrearReservaPanel extends javax.swing.JPanel {
             reserva.setReservaPK(reservaPK);
             
             //Con esta función se detecta el precio de la ruta asignada a la reservación y el id de la ruta y se asignan a la reserva
-            reserva.setPrecioAndIdruta(rutas);
+            reserva.setPrecioAndIdruta(RUTAS);
             
             //esta función permite ubicar un puesto disponible a la reserva entre los puesto no utilizados de una ruta
-            reserva.setPuesto(reservas, autobuses);
+            reserva.setPuesto(RESERVAS, AUTOBUSES);
+            reserva.setPasajero(pasajeroJpaController.findPasajero(Long.parseLong(pasajeroCedula.getText())));
             try {
                 
                 //Se ejecuta la función del controlador de reservas para crear una nueva reserva
@@ -535,7 +537,7 @@ public class CrearReservaPanel extends javax.swing.JPanel {
                 Seguidamente se recorren todas las rutas de la base de datos y se almacenan todos los elementos que coincidad con una CiudadOrigen,
                 CiudadDestino, FechaViaje y HoraViaje igual a la seleccionadas
                 */
-                for (Rutas r : rutas){
+                for (Rutas r : RUTAS){
                     try {
                         if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()) && convertirFecha(r.getFechaViaje().toString()).equals(convertirFecha(reserva.getFechaViaje().toString())) && r.getHoraViaje().toString().substring(11,16).equals(reserva.getHoraSalida().toString().substring(11,16)))
                             t.add(r.getAutobus().getIdautobus().toString());

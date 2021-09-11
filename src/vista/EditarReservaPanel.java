@@ -4,11 +4,14 @@ package vista;
 Se realiza el import de todos los elementos necesarios de otros paquetes como los controladores del servidor,
 los elementos para la interfaz grafica, manejo de listas, manejo de fechas y la lectura de imagenes
 */
+import controlador.exceptions.IllegalOrphanException;
+import controlador.exceptions.NonexistentEntityException;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.LinkedHashSet;
@@ -16,13 +19,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import modelo.Autobus;
+import modelo.Equipaje;
+import modelo.EquipajePK;
 import modelo.Reserva;
 import modelo.Rutas;
 import modelo.ReservaPK;
 import static vista.CrearReservaPanel.convertirFecha;
 import static vista.PrincipalFrame.PrincipalPanel;
-import static vista.PrincipalFrame.autobusJpaController;
+import static vista.PrincipalFrame.equipajeJpaController;
 import static vista.PrincipalFrame.reproducirS;
 import static vista.PrincipalFrame.reservaJpaController;
 import static vista.PrincipalFrame.rutasJpaController;
@@ -34,7 +38,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
     private List<String> t = new ArrayList();
     
     //Se tienen objetos de Reserva: reservaP un objeto auxiliar y reserva y reservaPK como elementos principales
-    private Reserva reservaP;
+    private Reserva reservaP = new Reserva();
     private Reserva reserva = new Reserva();
     private ReservaPK reservaPK = new ReservaPK();
     
@@ -45,9 +49,9 @@ public class EditarReservaPanel extends javax.swing.JPanel {
     private ArrayList <Date> horasNoRep;
     
     //Finalmente las listas actuales de todos los elementos que tiene la base de datos
-    protected List <Rutas> rutas = rutasJpaController.findRutasEntities();
-    protected List <Autobus> autobuses = autobusJpaController.findAutobusEntities();
-    protected List <Reserva> reservas = reservaJpaController.findReservaEntities();
+    private final List <Rutas> RUTAS = rutasJpaController.findRutasEntities();
+    private final List <Reserva> RESERVAS = reservaJpaController.findReservaEntities();
+    
 
     public EditarReservaPanel() {
         initComponents();
@@ -367,7 +371,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
                 reservaPK.setCiudadOrigen(CiudadOrigenCB.getSelectedItem().toString());
                 
                 //Seguidamente se recorren todas las rutas de la base de datos y se almacenan todos los elementos que coincidad con una CiudadOrigen igual a la seleccionada
-                for (Rutas r : rutas){
+                for (Rutas r : RUTAS){
                     if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()))
                         t.add(r.getRutasPK().getCiudadDestino());
                 }
@@ -411,7 +415,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
                 reservaPK.setCiudadDestino(CiudadDestinoCB.getSelectedItem().toString());
                 
                 //Seguidamente se recorren todas las rutas de la base de datos y se almacenan todos los elementos que coincidad con una CiudadOrigen y CiudadDestino igual a la seleccionadas
-                for (Rutas r : rutas){
+                for (Rutas r : RUTAS){
                     if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()))
                         try {
                             
@@ -467,7 +471,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
                 Seguidamente se recorren todas las rutas de la base de datos y se almacenan todos los elementos que coincidad con una CiudadOrigen,
                 CiudadDestino y FechaViaje igual a la seleccionadas
                 */
-                for (Rutas r : rutas){
+                for (Rutas r : RUTAS){
                     try { 
                         if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()) && convertirFecha(r.getFechaViaje().toString()).equals(convertirFecha(reserva.getFechaViaje().toString()))){
                             
@@ -521,7 +525,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
                 Seguidamente se recorren todas las rutas de la base de datos y se almacenan todos los elementos que coincidad con una CiudadOrigen,
                 CiudadDestino, FechaViaje y HoraViaje igual a la seleccionadas
                 */
-                for (Rutas r : rutas){
+                for (Rutas r : RUTAS){
                     try {
                         if(r.getRutasPK().getCiudadOrigen().equals(reservaPK.getCiudadOrigen()) && r.getRutasPK().getCiudadDestino().equals(reservaPK.getCiudadDestino()) && convertirFecha(r.getFechaViaje().toString()).equals(convertirFecha(reserva.getFechaViaje().toString())) && r.getHoraViaje().toString().substring(11,16).equals(reserva.getHoraSalida().toString().substring(11,16)))
                             t.add(r.getAutobus().getIdautobus().toString());
@@ -578,7 +582,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
         
         //Se limpia el panel
         this.Clean();
-        for (Reserva r : reservas) {
+        for (Reserva r : RESERVAS) {
             
             //Se verifica si alguna reserva coincide con el valor ingresado en la interfaz
             if (r.getReservaPK().getIdreserva().equals(idreserva.getText())) {
@@ -615,6 +619,10 @@ public class EditarReservaPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_BuscarBActionPerformed
 
     private void EditarReservaBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarReservaBActionPerformed
+        //Se asignan los valores de reservaPK a los de la reserva a editar
+        reserva.setPrecioAndIdruta(RUTAS);
+        reserva.setReservaPK(reservaPK);
+
         //Una vez se presiona el botón de editar se corrobora primero que la reserva auxiliar y la reserva principal no sean iguales
         if(reserva.equals2(reservaP)){
             
@@ -626,29 +634,112 @@ public class EditarReservaPanel extends javax.swing.JPanel {
         //En caso de haber encontrado diferencias entonces procede
         else{
             
-            //Primero ejecuta la función edit del controlador de reservas
-            try {
-                reservaJpaController.edit(reserva);
+            //Se presentan otros 2 casos, este primer caso considera que la reserva si tiene coleccion de equipajes
+            if(reserva.getEquipajeCollection().size() > 0){
                 
-                //En caso de todo ir correctamente entonces muestra una ventana emergente confirmando la acción
-                JOptionPane.showMessageDialog(this, "Se ha editado la reserva con éxito");
+                eliminarEquipaje(reserva);
                 
-                //Inicializa de nuevo el panel para limpiarlo y actualizar toda la información
-                EditarReservaPanel EditarRP = new EditarReservaPanel();
-                PrincipalPanel.setVisible(false);
-                PrincipalPanel.removeAll();
-                PrincipalPanel.add(EditarRP);
-                PrincipalPanel.setVisible(true);
+                reserva.setEquipajeCollection(null);
                 
-                //Se reproduce un sonido y finalmente se ejecuta el Garbage Collector para liberar espacio en memoria
-                reproducirS("bonkS.mp3");
-                System.gc();
+                try {
+                    reservaJpaController.destroy(reservaP.getReservaPK());
+                    reservaJpaController.create(reserva);
+                } catch (Exception ex) {
+                    Logger.getLogger(EditarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
+                boolean duplicated = false;
+                Collection <Equipaje> equipajes = null;
+                
+                //Se recorren todos estos equipajes asociados a la reserva
+                for(Equipaje equipaje : reservaP.getEquipajeCollection()){
+                    try {
+                        
+                        //Se crea un equipajePK con la nueva información del equipaje
+                        EquipajePK equipajePK = new EquipajePK(equipaje.getEquipajePK().getIdequipaje(), reserva.getReservaPK().getIdreserva(), reserva.getReservaPK().getPasajeroCedula(), reserva.getReservaPK().getCiudadOrigen(), reserva.getReservaPK().getCiudadDestino(), reserva.getReservaPK().getAutobusidautobus(), reserva.getReservaPK().getIdrutas());
+                        Equipaje equipa = new Equipaje(equipajePK, equipaje.getPeso(), equipaje.getTipoDeEquipaje(), equipaje.getEstado());
+                        equipa.setReserva(reserva);
+                        
+                        //Se crea el equipaje nuevo
+                        equipajeJpaController.create(equipa);
+                        
+                        
+                        reserva.getEquipajeCollection().add(equipa);
+                        
+                    //En caso de no poder ejecutar el edit entonces reproduce un sonido y muestra una ventana emergente con el error
+                    } catch (NonexistentEntityException ex) {
+                        Logger.getLogger(EditarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        reproducirS("errorS.mp3");
+                        JOptionPane.showMessageDialog(this, "Ha ocurrido un error. " + ex);
+                    } catch (Exception ex) {
+                        Logger.getLogger(EditarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        reproducirS("errorS.mp3");
+                        JOptionPane.showMessageDialog(this, "Ha ocurrido un error. " + ex);
+                    }
+                    
+                    //Al final de cada ciclo agrega cada equipaje creado a la lista de equipajes auxiliar
+//                    duplicated = equipajes.;
+                }
+                
+                //Ahora se procede a eliminar la reserva anterior e ingresar la nueva reserva
+                try {
+                    reservaJpaController.edit(reserva);
+                    //En caso de todo ir correctamente entonces muestra una ventana emergente confirmando la acción
+                    JOptionPane.showMessageDialog(this, "Se ha editado la reserva con éxito");
+
+                    //Inicializa de nuevo el panel para limpiarlo y actualizar toda la información
+                    EditarReservaPanel EditarRP = new EditarReservaPanel();
+                    PrincipalPanel.setVisible(false);
+                    PrincipalPanel.removeAll();
+                    PrincipalPanel.add(EditarRP);
+                    PrincipalPanel.setVisible(true);
+
+                    //Se reproduce un sonido y finalmente se ejecuta el Garbage Collector para liberar espacio en memoria
+                    reproducirS("bonkS.mp3");
+                    System.gc();
+                    
                 //En caso de no poder ejecutar el edit entonces reproduce un sonido y muestra una ventana emergente con el error
-            } catch (Exception ex) {
-                Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
-                reproducirS("errorS.mp3");
-                JOptionPane.showMessageDialog(this, "Ha ocurrido un error. " + ex);
+                } catch (IllegalOrphanException ex) {
+                    Logger.getLogger(EditarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    reproducirS("errorS.mp3");
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error. " + ex);
+                } catch (NonexistentEntityException ex) {
+                    Logger.getLogger(EditarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    reproducirS("errorS.mp3");
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error. " + ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(EditarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    reproducirS("errorS.mp3");
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error. " + ex);
+                }
+                
+            }
+            else {
+                //Primero ejecuta la función edit del controlador de reservas
+                try {
+                    reservaJpaController.destroy(reservaP.getReservaPK());
+                    reservaJpaController.create(reserva);
+
+                    //En caso de todo ir correctamente entonces muestra una ventana emergente confirmando la acción
+                    JOptionPane.showMessageDialog(this, "Se ha editado la reserva con éxito");
+
+                    //Inicializa de nuevo el panel para limpiarlo y actualizar toda la información
+                    EditarReservaPanel EditarRP = new EditarReservaPanel();
+                    PrincipalPanel.setVisible(false);
+                    PrincipalPanel.removeAll();
+                    PrincipalPanel.add(EditarRP);
+                    PrincipalPanel.setVisible(true);
+
+                    //Se reproduce un sonido y finalmente se ejecuta el Garbage Collector para liberar espacio en memoria
+                    reproducirS("bonkS.mp3");
+                    System.gc();
+
+                //En caso de no poder ejecutar el edit entonces reproduce un sonido y muestra una ventana emergente con el error
+                } catch (Exception ex) {
+                    Logger.getLogger(CrearReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    reproducirS("errorS.mp3");
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error. " + ex);
+                }
             }
         }
     }//GEN-LAST:event_EditarReservaBActionPerformed
@@ -661,7 +752,7 @@ public class EditarReservaPanel extends javax.swing.JPanel {
     public void LlenarCB(Reserva r) {
         
         //Primero se guarda la información disponible de todas las ciudades de origen
-        for (Rutas ru : rutas) {
+        for (Rutas ru : RUTAS) {
             t.add(ru.getCiudad().getNombreCiudad());
         }
         
@@ -718,10 +809,31 @@ public class EditarReservaPanel extends javax.swing.JPanel {
         reservaPK.setIdreserva(idreserva.getText());
         reserva.setReservaPK(reservaPK);
         reserva.setPuesto(r.getPuesto());
-        reserva.setPrecioAndIdruta(rutas);
+        reserva.setPrecioAndIdruta(RUTAS);
         reserva.setEquipajeCollection(r.getEquipajeCollection());
         reserva.setRutas(r.getRutas());
-        reservaP = new Reserva(reservaPK, reserva.getTipoDePago(), reserva.getPuesto(), reserva.getFechaViaje(), reserva.getHoraSalida(), reserva.getPrecio());
+        reservaP.setReservaPK(new ReservaPK(idreserva.getText(), Long.parseLong(pasajeroCedula.getText()), CiudadOrigenCB.getSelectedItem().toString(), CiudadDestinoCB.getSelectedItem().toString(), Integer.parseInt(AutobusCB.getSelectedItem().toString()), reserva.getReservaPK().getIdrutas()));
+        reservaP.setPuesto(r.getPuesto());
+        reservaP.setPrecio(reserva.getPrecio());
+        reservaP.setEquipajeCollection(r.getEquipajeCollection());
+        reservaP.setRutas(r.getRutas());
+    }
+    
+        //Esta función permite la eliminación del equipaje asociado a la reserva de entrada
+    public void eliminarEquipaje(Reserva reserva){
+        
+        //Se recorren todos los equipajes que tiene dicha reserva
+        for(Equipaje equipaje : reserva.getEquipajeCollection()){
+            
+            //Se procede a ejecutar la eliminación con el controlador del equipaje
+            try {
+                equipajeJpaController.destroy(equipaje.getEquipajePK());
+            
+            //En caso de encontrar algun error lo muestra en una ventana emergente
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(EliminarReservaPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     //Función para limpiar todos los elementos dentro de la interfaz grafica

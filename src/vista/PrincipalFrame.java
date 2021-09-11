@@ -10,12 +10,14 @@ import controlador.PasajeroJpaController;
 import controlador.ReservaJpaController;
 import controlador.RutasJpaController;
 import java.io.File;
+import java.util.List;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.ImageIcon;
+import modelo.Equipaje;
 
 public class PrincipalFrame extends javax.swing.JFrame{
 
@@ -26,6 +28,7 @@ public class PrincipalFrame extends javax.swing.JFrame{
     protected static PasajeroJpaController pasajeroJpaController = new PasajeroJpaController(emf);
     protected static ReservaJpaController reservaJpaController = new ReservaJpaController(emf);
     protected static EquipajeJpaController equipajeJpaController = new EquipajeJpaController(emf);
+    protected static List <Equipaje> equipajes = equipajeJpaController.findEquipajeEntities();
     
     //Constructor del JFrame que inicializa todos los componentes del mismo, en este caso solo el panel principal
     public PrincipalFrame() {

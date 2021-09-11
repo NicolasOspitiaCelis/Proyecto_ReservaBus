@@ -22,7 +22,7 @@ public class EditarPasajeroPanel extends javax.swing.JPanel {
     private Image imagen;
     private Pasajero pasajeroP;
     private Pasajero pasajero;
-    protected List <Pasajero> pasajeros = pasajeroJpaController.findPasajeroEntities();
+    private final List <Pasajero> PASAJEROS = pasajeroJpaController.findPasajeroEntities();
 
     public EditarPasajeroPanel() {
         initComponents();
@@ -185,7 +185,7 @@ public class EditarPasajeroPanel extends javax.swing.JPanel {
     private void BuscarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBActionPerformed
         //Presionado el botón de buscar se verifica la existencia del id de pasajero ingresado con ayuda de found y el ciclo for
         boolean found = false;
-        for(Pasajero p : pasajeros){
+        for(Pasajero p : PASAJEROS){
             
             //Se verifica si algún pasajero coincide con el valor ingresado en la interfaz
             if(p.getCedula().toString().equals(idpasajeroT.getText())){
@@ -193,6 +193,7 @@ public class EditarPasajeroPanel extends javax.swing.JPanel {
                 //Al encontrar una coincidencia procede a asignar los valores del pasajero en el TextField y ComboBox del panel
                 nombreT.setText(p.getNombre());
                 tipoDeDocumentoCB.setSelectedItem(p.getTipoDeDocumento());
+                idpasajeroT.setEditable(false);
                 
                 //Se confirma que se encontró
                 found = true;

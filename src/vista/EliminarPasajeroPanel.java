@@ -27,7 +27,7 @@ public class EliminarPasajeroPanel extends javax.swing.JPanel {
     //Se declaran las variables de la imagen, la lista de pasajeros actual y un pasajero auxiliar
     private Image imagen;
     private Pasajero pasajero;
-    protected List <Pasajero> pasajeros = pasajeroJpaController.findPasajeroEntities();
+    private final List <Pasajero> PASAJEROS = pasajeroJpaController.findPasajeroEntities();
 
     public EliminarPasajeroPanel() {
         initComponents();
@@ -204,7 +204,7 @@ public class EliminarPasajeroPanel extends javax.swing.JPanel {
         String reservas = "";
         
         //Se recorre la lista de pasajeros actuales de la base de datos
-        for(Pasajero p : pasajeros){
+        for(Pasajero p : PASAJEROS){
             
             //En caso de encontrar una coincidencia entonces procede a ejecutar lo siguiente
             if(p.getCedula().toString().equals(idpasajeroT.getText())){
@@ -220,7 +220,7 @@ public class EliminarPasajeroPanel extends javax.swing.JPanel {
                 pasajero = new Pasajero(Long.parseLong(idpasajeroT.getText()), p.getNombre(), p.getTipoDeDocumento());
                 
                 //En caso de que el pasajero encontrado contenga reservas a su nombre entonces procede esta condicional
-                if(p.getReservaCollection() != null){
+                if(p.getReservaCollection().size() > 0){
                     
                     //Muestra el Label de reservas y su correspondiente TextArea
                     pasajero.setReservaCollection(p.getReservaCollection());
@@ -312,7 +312,7 @@ public class EliminarPasajeroPanel extends javax.swing.JPanel {
         for (Reserva reserva : pasajero.getReservaCollection()) {
             
             //Se verifica si la reserva contiene algún equipaje relacionado y procede a eliminarlo en ese caso
-            if(reserva.getEquipajeCollection() != null) eliminarEquipaje(reserva);
+            if(reserva.getEquipajeCollection().size() > 0) eliminarEquipaje(reserva);
             
             //Una vez que se eliminen todos los equipajes si existen, entonces procede a eliminar las reservas
             try {

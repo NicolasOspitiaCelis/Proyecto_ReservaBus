@@ -19,7 +19,7 @@ public class ConsultarPasajeroPanel extends javax.swing.JPanel {
 
     //Se declaran las variables de la imagen y la lista de pasajeros actual
     private Image imagen;
-    protected List <Pasajero> pasajeros = pasajeroJpaController.findPasajeroEntities();
+    private final List <Pasajero> PASAJEROS = pasajeroJpaController.findPasajeroEntities();
 
     public ConsultarPasajeroPanel() {
         initComponents();
@@ -200,11 +200,18 @@ public class ConsultarPasajeroPanel extends javax.swing.JPanel {
         //Se verifica con un ciclo la existencia del pasajero que se busca con ayuda de la variable found
         boolean found = false;
         
+        //Se ocualtan las elementos que inicialmente estaban ocultos en caso de que la nueva consulta no tenga elementos
+        reservasL.setVisible(false);
+        jScrollPane1.setVisible(false);
+        
+        //Se limpia el TextArea donde se muestran las reservas
+        reservasList.setText("");
+        
         //Variable auxiliar de reservas del pasajero
         String reservas = "";
         
         //Se recorre la lista de pasajeros actuales de la base de datos
-        for(Pasajero p : pasajeros){
+        for(Pasajero p : PASAJEROS){
             
             //En caso de encontrar una coincidencia entonces procede a ejecutar lo siguiente
             if(p.getCedula().toString().equals(idpasajeroT.getText())){
@@ -217,7 +224,7 @@ public class ConsultarPasajeroPanel extends javax.swing.JPanel {
                 found = true;
                 
                 //En caso de que el pasajero encontrado contenga reservas a su nombre entonces procede esta condicional
-                if(p.getReservaCollection() != null){
+                if(p.getReservaCollection().size() > 0){
                     
                     //Muestra el Label de reservas y su correspondiente TextArea
                     reservasL.setVisible(true);

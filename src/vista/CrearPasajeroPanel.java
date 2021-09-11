@@ -20,7 +20,7 @@ public class CrearPasajeroPanel extends javax.swing.JPanel {
 
     //Se declaran las variables de la imagen, la lista de pasajeros actual y un pasajero auxiliar
     private Image imagen;
-    protected List <Pasajero> pasajeros = pasajeroJpaController.findPasajeroEntities();
+    private final List <Pasajero> PASAJEROS = pasajeroJpaController.findPasajeroEntities();
     private Pasajero pasajero = new Pasajero();
 
     public CrearPasajeroPanel() {
@@ -178,7 +178,7 @@ public class CrearPasajeroPanel extends javax.swing.JPanel {
     private void CrearPasajeroBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearPasajeroBActionPerformed
         //Primero con ayuda de una variable boolean y un ciclo se identifica si el id de pasajero esta repetido dentro de la base de datos
         boolean repetido = false;
-        for(Pasajero p : pasajeros){
+        for(Pasajero p : PASAJEROS){
             
             //Se evalua si se repite el valor del Textfield con el de cada pasajero leido de la base de datos
             if(idpasajero.getText().equals(String.valueOf(p.getCedula()))){
@@ -198,6 +198,7 @@ public class CrearPasajeroPanel extends javax.swing.JPanel {
             pasajero.setCedula(Long.parseLong(idpasajero.getText()));
             pasajero.setNombre(nombreT.getText());
             pasajero.setTipoDeDocumento(tipoDocumentoCB.getSelectedItem().toString());
+            pasajero.setReservaCollection(null);
             
             //Una vez capturada toda la información del pasajero entonces se procede a enviar el insert a la base de datos
             try {

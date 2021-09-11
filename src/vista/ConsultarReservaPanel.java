@@ -24,7 +24,7 @@ public class ConsultarReservaPanel extends javax.swing.JPanel {
     private Image imagen;
     
     //Se instancia la lista de todas las reservas disponibles dentro del servidor
-    protected List <Reserva> reservas = reservaJpaController.findReservaEntities();
+    private final List <Reserva> RESERVAS = reservaJpaController.findReservaEntities();
 
     //Se inician los componentes de la interfaz grafica
     public ConsultarReservaPanel() {
@@ -288,7 +288,7 @@ public class ConsultarReservaPanel extends javax.swing.JPanel {
         boolean found = false;
         
         //Luego se recorre todas las reservas para identificar la coincidencia con el codigo de reserva que se ingresó
-        for(Reserva r : reservas){
+        for(Reserva r : RESERVAS){
             
             //Condición de coincidencia
             if(r.getReservaPK().getIdreserva().equals(idreservaB.getText())){

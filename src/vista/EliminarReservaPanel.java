@@ -29,7 +29,7 @@ public class EliminarReservaPanel extends javax.swing.JPanel {
     private Image imagen;
     private ReservaPK reservaPK;
     private Reserva reserva;
-    protected List <Reserva> reservas = reservaJpaController.findReservaEntities();
+    private final List <Reserva> RESERVAS = reservaJpaController.findReservaEntities();
 
     public EliminarReservaPanel() {
         initComponents();
@@ -304,7 +304,7 @@ public class EliminarReservaPanel extends javax.swing.JPanel {
         boolean found = false;
         
         //Luego se recorre todas las reservas para identificar la coincidencia con el codigo de reserva que se ingresó
-        for(Reserva r : reservas){
+        for(Reserva r : RESERVAS){
             
             //Condición de coincidencia
             if(r.getReservaPK().getIdreserva().equals(idreservaB.getText())){
@@ -359,7 +359,7 @@ public class EliminarReservaPanel extends javax.swing.JPanel {
             
             //Primero se verifica si la reserva en cuestion posee equipaje asociado, ya que sin eliminar este antes entonces genera un error
             //En caso de poseer equipaje entonces se procede a eliminarlo
-            if(reserva.getEquipajeCollection() != null) eliminarEquipaje(reserva);
+            if(reserva.getEquipajeCollection().size() > 0) eliminarEquipaje(reserva);
             
             //Se ejecuta la función de eliminar del controlador de reservas
             reservaJpaController.destroy(reservaPK);

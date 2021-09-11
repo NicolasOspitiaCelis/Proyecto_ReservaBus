@@ -33,7 +33,7 @@ public class ReservaPanel extends javax.swing.JPanel {
 
         CrearReserva.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         CrearReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/Imagenes/ReservarIcon.png"))); // NOI18N
-        CrearReserva.setText("Reservar");
+        CrearReserva.setText("Crear reserva");
         CrearReserva.setContentAreaFilled(false);
         CrearReserva.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         CrearReserva.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/Imagenes/ReservarIcon_G_G.png"))); // NOI18N
@@ -46,7 +46,7 @@ public class ReservaPanel extends javax.swing.JPanel {
 
         ConsultarReserva.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         ConsultarReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/Imagenes/ConsultarIcon.png"))); // NOI18N
-        ConsultarReserva.setText("Consultar");
+        ConsultarReserva.setText("Consultar reserva");
         ConsultarReserva.setContentAreaFilled(false);
         ConsultarReserva.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ConsultarReserva.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/Imagenes/ConsultarIcon_G_G.png"))); // NOI18N
